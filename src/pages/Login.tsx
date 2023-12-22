@@ -1,36 +1,26 @@
 import React, { useEffect } from "react";
 import { Input, Card, Button, Label } from "../components/ui";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import { useAuth } from "../components/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const { login, errors } = useAuth();
 
   const onSubmit = handleSubmit(async (data) => {
-    try {
-      const response = await axios.post("http://localhost:3000/login", data);
-
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        console.log("Inicio de sesión exitoso");
-        navigate("/form");
-      } else {
-        console.error("Error al iniciar sesión:", response.data.message);
-      }
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
-    }
+    await login(data);
   });
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-600">
+    <div className="h-[calc(100vh)] flex items-center justify-center bg-blue-600">
       <Card className="w-96 p-8 bg-white shadow-md rounded-md">
+        {errors &&
+          errors.map((err) => (
+            <p className="text-red-500 text-center">{err}</p>
+          ))}
+
         <h1 className="text-3xl font-bold mb-6 text-center text-white">
           INICIAR SESIÓN
         </h1>
@@ -46,9 +36,6 @@ const Login: React.FC = () => {
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               {...register("legajo", { required: true })}
             />
-            {errors.legajo && (
-              <p className="text-red-500">Ingrese un legajo correcto</p>
-            )}
           </div>
 
           <div className="mb-6">
@@ -62,9 +49,6 @@ const Login: React.FC = () => {
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               {...register("password", { required: true })}
             />
-            {errors.password && (
-              <p className="text-red-500">Ingrese una contraseña válida</p>
-            )}
           </div>
 
           <Button

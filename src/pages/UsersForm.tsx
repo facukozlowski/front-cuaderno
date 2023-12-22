@@ -1,9 +1,8 @@
 import { FormEvent } from "react";
-import axios, { AxiosResponse } from "axios";
 import { Input, Card, Button } from "../components/ui";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useAuth } from "../components/context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 
 interface FormData {
   email: string;
@@ -19,41 +18,16 @@ const UsersForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-
   const navigate = useNavigate();
+  const { createUser } = useAuth();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    try {
-      const token = localStorage.getItem("token");
-      console.log("Token:", token);
-
-      const response: AxiosResponse<any> = await axios.post(
-        "http://localhost:3000/users",
-        data,
-        {
-          headers: {
-            Authorization: token,
-          },
-          withCredentials: true,
-        }
-      );
-
-      console.log(response);
-
-      if (response.status === 201) {
-        console.log("Nuevo usuario creado con éxito");
-
-        navigate("/dashboard");
-      } else {
-        console.error("Error al crear el usuario:", response.data.message);
-      }
-    } catch (error) {
-      console.error("Error al crear el usuario:", error);
-    }
+    await createUser(data);
+    navigate("/");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-600">
+    <div className="h-[calc(100vh-3.5rem)] flex items-center justify-center bg-blue-600">
       <Card>
         <h1 className="text-2xl font-bold text-white">REGISTRO DE USUARIOS</h1>
 
