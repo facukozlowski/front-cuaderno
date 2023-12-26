@@ -7,7 +7,6 @@ const Navbar = () => {
   const location = useLocation();
   const { isAuth, logout } = useAuth();
 
-  // No renderizar la barra de navegación si el usuario no ha iniciado sesión
   if (!isAuth) {
     return null;
   }

@@ -14,6 +14,9 @@ interface AuthContextProps {
   createUser: (data: any) => Promise<void>;
   login: (data: any) => Promise<void>;
   logout: () => void;
+  listUsers: () => Promise<void | any[]>;
+  listConductores: () => Promise<void>;
+  listVehiculos: () => Promise<void>;
 }
 
 interface AuthProviderProps {
@@ -23,6 +26,7 @@ interface AuthProviderProps {
 type LoginResponse =
   | {
       token: string;
+      rol: string;
     }
   | string[];
 
@@ -50,8 +54,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if ("token" in response.data) {
         localStorage.setItem("token", response.data.token);
-        console.log("Inicio de sesión exitoso");
-        console.log(response.data);
+
+        const userResponse = await axios.get("http://localhost:3000/users", {
+          headers: {
+            Authorization: response.data.token,
+          },
+        });
+        const userData = userResponse.data[0];
+
+        setUser(userData);
         setIsAuth(true);
       } else {
         throw new Error("Token no recibido del servidor");
@@ -64,6 +75,60 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.error("Error desconocido:", err);
         setErrors(["Error desconocido"]);
       }
+    }
+  };
+
+  const listUsers = async (): Promise<any[]> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/users",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const listConductores = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/conductores",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const listVehiculos = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/vehiculos",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
     }
   };
 
@@ -126,6 +191,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isAuth,
     errors,
     createUser,
+    listUsers,
+    listConductores,
+    listVehiculos,
     login,
     logout,
   };

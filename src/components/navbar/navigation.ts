@@ -18,4 +18,12 @@ export const privateRoutes = [
     name: "admin",
     path: "/panelAdmin",
   },
+  {
+    name: "conductores",
+    path: "/conductores",
+  },
+  {
+    name: "vehiculos",
+    path: "/vehiculos",
+  },
 ];

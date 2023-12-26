@@ -7,6 +7,8 @@ import NotFound from "./pages/NotFound";
 import Navbar from "./components/navbar/Navbar";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import { useAuth } from "./components/context/AuthContext";
+import Conductores from "./pages/Conductores";
+import Vehiculos from "./pages/Vehiculos";
 
 const App = () => {
   const { isAuth } = useAuth();
@@ -25,6 +27,8 @@ const App = () => {
           <Route path="/panelAdmin" element={<PanelAdmin />} />
           <Route path="/form" element={<UsersForm />} />
           <Route path="/" element={<Home />} />
+          <Route path="/conductores" element={<Conductores />} />
+          <Route path="/vehiculos" element={<Vehiculos />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
