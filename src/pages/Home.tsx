@@ -2,7 +2,6 @@ import { useAuth } from "../components/context/AuthContext";
 
 const HomePage = () => {
   const data = useAuth();
-  console.log(data.user);
   return (
     <div className="h-[calc(100vh-3.5rem)] flex items-center justify-center bg-blue-600">
       <div className="text-white text-center">

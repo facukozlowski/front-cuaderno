@@ -26,7 +26,7 @@ interface AuthProviderProps {
 type LoginResponse =
   | {
       token: string;
-      rol: string;
+      roles: string;
     }
   | string[];
 
@@ -44,6 +44,7 @@ export const useAuth = () => {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<string | undefined>(undefined);
+  const [role, setRole] = useState<string | undefined>(undefined);
   const [isAuth, setIsAuth] = useState(false);
   const [errors, setErrors] = useState<string[] | null>(null);
 
@@ -54,6 +55,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if ("token" in response.data) {
         localStorage.setItem("token", response.data.token);
+
+        // Actualiza para extraer el rol correctamente
+        const userRole = response.data.roles[0];
+        localStorage.setItem("role", userRole); // Almacena el rol en el Local Storage
+        setRole(userRole); // Actualiza el estado del rol en el contexto
 
         const userResponse = await axios.get("http://localhost:3000/users", {
           headers: {
@@ -135,28 +141,29 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const createUser = async (data: any): Promise<void> => {
     try {
       const token = localStorage.getItem("token");
-      console.log("Token:", token);
+      const userRole = localStorage.getItem("role");
+      console.log("Token y Rol antes de crear el usuario:", token, userRole);
 
       const response: AxiosResponse<any> = await axios.post(
         "http://localhost:3000/users",
         data,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
-          withCredentials: true,
         }
       );
 
       console.log(response);
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Error al crear nuevo usuario:", error);
       throw new Error("Error creating user");
     }
   };
 
   const logout = (): void => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
     setIsAuth(false);
   };
 
