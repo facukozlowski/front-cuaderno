@@ -6,10 +6,12 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
+import { toast } from "react-toastify";
 
 interface AuthContextProps {
   user: string | undefined;
   isAuth: boolean;
+  role: string | undefined;
   errors: string[] | null;
   createUser: (data: any) => Promise<void>;
   login: (data: any) => Promise<void>;
@@ -142,7 +144,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const userRole = localStorage.getItem("role");
-      console.log("Token y Rol antes de crear el usuario:", token, userRole);
 
       const response: AxiosResponse<any> = await axios.post(
         "http://localhost:3000/users",
@@ -155,9 +156,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       );
 
       console.log(response);
+      toast.success("Usuario creado con éxito");
     } catch (error) {
       console.error("Error al crear nuevo usuario:", error);
-      throw new Error("Error creating user");
+
+      toast.error("Error al crear el usuario");
     }
   };
 
@@ -170,10 +173,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem("token");
+
       if (token) {
         try {
           const response: AxiosResponse<any> = await axios.get(
-            "http://localhost:3000/auth/check",
+            "http://localhost:3000/verificar-autenticacion",
             {
               headers: {
                 Authorization: token,
@@ -181,11 +185,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
               withCredentials: true,
             }
           );
+
           setUser(response.data.user);
+          setRole(localStorage.getItem("role") || ""); // Recuperar el rol del localStorage
           setIsAuth(true);
         } catch (error) {
           console.error("Error al verificar la autenticación:", error);
-          logout();
+
+          if (error) {
+            logout();
+          }
         }
       }
     };
@@ -196,6 +205,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const contextValue: AuthContextProps = {
     user,
     isAuth,
+    role,
     errors,
     createUser,
     listUsers,
