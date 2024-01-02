@@ -7,18 +7,27 @@ import { useNavigate } from "react-router-dom";
 const Login: React.FC = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const { login, errors } = useAuth();
+  const { login, errors, isAuth } = useAuth();
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/");
+    }
+  }, [isAuth, navigate]);
 
   const onSubmit = handleSubmit(async (data) => {
     await login(data);
+    navigate("/");
   });
 
   return (
     <div className="h-[calc(100vh)] flex items-center justify-center bg-blue-600">
       <Card className="w-96 p-8 bg-white shadow-md rounded-md">
         {errors &&
-          errors.map((err) => (
-            <p className="text-red-500 text-center">{err}</p>
+          errors.map((err, index) => (
+            <p key={index} className="text-red-500 text-center">
+              {err}
+            </p>
           ))}
 
         <h1 className="text-3xl font-bold mb-6 text-center text-white">

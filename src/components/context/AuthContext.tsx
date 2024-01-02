@@ -14,6 +14,7 @@ interface AuthContextProps {
   role: string | undefined;
   errors: string[] | null;
   createUser: (data: any) => Promise<void>;
+  deleteUser: (data: any) => Promise<void>;
   login: (data: any) => Promise<void>;
   logout: () => void;
   listUsers: () => Promise<void | any[]>;
@@ -48,6 +49,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<string | undefined>(undefined);
   const [role, setRole] = useState<string | undefined>(undefined);
   const [isAuth, setIsAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState<string[] | null>(null);
 
   const login = async (data: any): Promise<void> => {
@@ -58,10 +60,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if ("token" in response.data) {
         localStorage.setItem("token", response.data.token);
 
-        // Actualiza para extraer el rol correctamente
         const userRole = response.data.roles[0];
-        localStorage.setItem("role", userRole); // Almacena el rol en el Local Storage
-        setRole(userRole); // Actualiza el estado del rol en el contexto
+        localStorage.setItem("role", userRole);
+        setRole(userRole);
 
         const userResponse = await axios.get("http://localhost:3000/users", {
           headers: {
@@ -108,7 +109,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const response: AxiosResponse<any> = await axios.get(
-        "http://localhost:3000/conductores",
+        "http://localhost:3000/configuracion/conductores",
         {
           headers: {
             Authorization: token,
@@ -126,7 +127,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const response: AxiosResponse<any> = await axios.get(
-        "http://localhost:3000/vehiculos",
+        "http://localhost:3000/configuracion/vehiculos",
         {
           headers: {
             Authorization: token,
@@ -164,6 +165,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const deleteUser = async (data: any): Promise<void> => {
+    try {
+      const token = localStorage.getItem("token");
+      const userRole = localStorage.getItem("role");
+
+      const response: AxiosResponse<any> = await axios.put(
+        "http://localhost:3000/users",
+        data,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      console.log(response);
+      toast.success("Usuario eliminado correctamente");
+    } catch (error) {
+      console.error("Error al eliminar usuario:", error);
+
+      toast.error("Error al eliminar usuario");
+    }
+  };
+
   const logout = (): void => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
@@ -187,7 +212,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           );
 
           setUser(response.data.user);
-          setRole(localStorage.getItem("role") || ""); // Recuperar el rol del localStorage
+          setRole(localStorage.getItem("role") || "");
           setIsAuth(true);
         } catch (error) {
           console.error("Error al verificar la autenticación:", error);
@@ -195,12 +220,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           if (error) {
             logout();
           }
+        } finally {
+          setLoading(false);
         }
+      } else {
+        setLoading(false);
       }
     };
 
     checkAuth();
-  }, []);
+  }, [setUser, setRole, setIsAuth, logout]);
 
   const contextValue: AuthContextProps = {
     user,
@@ -208,6 +237,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     role,
     errors,
     createUser,
+    deleteUser,
     listUsers,
     listConductores,
     listVehiculos,

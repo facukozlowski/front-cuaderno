@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../components/context/AuthContext";
-import { Card } from "../components/ui";
+import { Card, Button } from "../components/ui";
+
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  legajo: string;
+}
 
 const PanelAdmin = () => {
-  const { listUsers } = useAuth();
-  const [users, setUsers] = useState<any[]>([]);
+  const { listUsers, deleteUser } = useAuth();
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -21,6 +28,22 @@ const PanelAdmin = () => {
     fetchUsers();
   }, [listUsers]);
 
+  const handleDeleteUser = async (userId: number) => {
+    try {
+      if (window.confirm("¿Seguro de eliminar este usuario?")) {
+        const token = localStorage.getItem("token");
+        console.log("Token:", token);
+
+        await deleteUser(userId);
+
+        const updatedUsers = users.filter((user) => user.id !== userId);
+        setUsers(updatedUsers);
+      }
+    } catch (error) {
+      console.error("Error al eliminar usuario:", error);
+    }
+  };
+
   return (
     <div className="h-[calc(100vh-3.5rem)] flex items-center justify-center bg-blue-600">
       <Card>
@@ -35,6 +58,7 @@ const PanelAdmin = () => {
                 <th className="p-3 border">Username</th>
                 <th className="p-3 border">Email</th>
                 <th className="p-3 border">Legajo</th>
+                <th className="p-3 border">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -43,6 +67,11 @@ const PanelAdmin = () => {
                   <td className="p-3 text-center">{user.username}</td>
                   <td className="p-3 text-center">{user.email}</td>
                   <td className="p-3 text-center">{user.legajo}</td>
+                  <td className="p-3 text-center">
+                    <Button onClick={() => handleDeleteUser(user.id)}>
+                      Eliminar
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>

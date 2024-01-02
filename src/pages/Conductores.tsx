@@ -22,7 +22,7 @@ const Conductores = () => {
   }, [listConductores]);
 
   return (
-    <div className="h-[calc(100vh-3.5rem)] flex items-center justify-center bg-blue-600">
+    <div className="h-[calc(100vh-0rem)] flex items-center justify-center bg-blue-600">
       <Card>
         <h1 className="text-2xl font-bold text-white text-center">
           LISTADO DE CONDUCTORES
