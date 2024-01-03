@@ -20,6 +20,11 @@ interface AuthContextProps {
   listUsers: () => Promise<void | any[]>;
   listConductores: () => Promise<void>;
   listVehiculos: () => Promise<void>;
+  listRotacion: () => Promise<void>;
+  listServicio: () => Promise<void>;
+  listIPK: () => Promise<void>;
+  listLineas: () => Promise<void>;
+  listRamal: () => Promise<void>;
 }
 
 interface AuthProviderProps {
@@ -141,6 +146,96 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const listRotacion = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/configuracion/rotacion",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const listServicio = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/configuracion/tiposervicio",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const listIPK = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/configuracion/tagIPK",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const listLineas = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/configuracion/linea",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const listRamal = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/configuracion/ramal",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const createUser = async (data: any): Promise<void> => {
     try {
       const token = localStorage.getItem("token");
@@ -241,6 +336,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     listUsers,
     listConductores,
     listVehiculos,
+    listRotacion,
+    listServicio,
+    listIPK,
+    listLineas,
+    listRamal,
     login,
     logout,
   };

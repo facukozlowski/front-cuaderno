@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../components/context/AuthContext";
-import { Button, Card } from "../components/ui";
-import axios from "axios";
+import { Card } from "../components/ui";
+import MaterialTable from "../components/MaterialTable";
 
 const Vehiculos = () => {
   const { listVehiculos } = useAuth();
@@ -22,62 +22,32 @@ const Vehiculos = () => {
     fetchVehiculos();
   }, [listVehiculos]);
 
+  interface Column {
+    id: string;
+    label: string;
+  }
+
+  const columns: Column[] = [
+    { id: "id", label: "Id" },
+    { id: "interno", label: "Interno" },
+    { id: "dominio", label: "Dominio" },
+  ];
+
   return (
     <div className="h-[calc(100vh-0rem)] flex items-center justify-center bg-blue-600">
       <Card>
-        <h1 className="text-2xl font-bold text-white text-center">
+        <h1 className="text-2xl font-bold text-white text-center mb-5">
           LISTADO DE VEHÍCULOS DISPONIBLES
         </h1>
 
         {vehiculos.length > 0 && (
-          <table className="mt-4 w-full border-collapse border text-white">
-            <thead>
-              <tr>
-                <th className="p-3 border">Id</th>
-                <th className="p-3 border">Interno</th>
-                <th className="p-3 border">Dominio</th>
-              </tr>
-            </thead>
-            <tbody>
-              {vehiculos.map((vehiculo) => (
-                <tr key={vehiculo.id} className="border">
-                  <td className="p-3 text-center">{vehiculo.id}</td>
-                  <td className="p-3 text-center">{vehiculo.interno}</td>
-                  <td className="p-3 text-center">{vehiculo.dominio}</td>
-                  <Button
-                    onClick={async () => {
-                      if (
-                        window.confirm("¿Seguro de eliminar este vehículo?")
-                      ) {
-                        console.log(vehiculo.id);
-                        const token = localStorage.getItem("token");
-                        console.log("Token:", token);
+          <MaterialTable columns={columns} data={vehiculos} />
+        )}
 
-                        try {
-                          await axios.put(
-                            `http://localhost:3000/vehiculos/${vehiculo.id}`,
-                            {
-                              headers: token
-                                ? { Authorization: `Bearer ${token}` }
-                                : {},
-                            }
-                          );
-                          const updatedVehiculos = vehiculos.filter(
-                            (v) => v.id !== vehiculo.id
-                          );
-                          setVehiculos(updatedVehiculos);
-                        } catch (error) {
-                          console.error("Error al eliminar vehículo:", error);
-                        }
-                      }
-                    }}
-                  >
-                    Eliminar
-                  </Button>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {vehiculos.length === 0 && (
+          <p className="text-white text-center mt-4">
+            No hay vehículos disponibles.
+          </p>
         )}
       </Card>
     </div>

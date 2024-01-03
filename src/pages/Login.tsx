@@ -21,8 +21,8 @@ const Login: React.FC = () => {
   });
 
   return (
-    <div className="h-[calc(100vh)] flex items-center justify-center bg-blue-600">
-      <Card className="w-96 p-8 bg-white shadow-md rounded-md">
+    <div className="flex items-center justify-center h-screen bg-orange-600">
+      <Card className="bg-orange-500 max-w-md rounded-md">
         {errors &&
           errors.map((err, index) => (
             <p key={index} className="text-red-500 text-center">
@@ -30,13 +30,13 @@ const Login: React.FC = () => {
             </p>
           ))}
 
-        <h1 className="text-3xl font-bold mb-6 text-center text-white">
+        <h1 className="text-3xl font-bold mb-6 text-center py-10 text-white">
           INICIAR SESIÓN
         </h1>
 
         <form onSubmit={onSubmit}>
           <div className="mb-4">
-            <Label htmlFor="legajo" className="text-sm text-gray-600">
+            <Label htmlFor="legajo" className="text-m text-white">
               Legajo:
             </Label>
             <Input
@@ -48,7 +48,7 @@ const Login: React.FC = () => {
           </div>
 
           <div className="mb-6">
-            <Label htmlFor="password" className="text-sm text-gray-600">
+            <Label htmlFor="password" className="text-m text-white">
               Contraseña:
             </Label>
             <Input
@@ -62,7 +62,7 @@ const Login: React.FC = () => {
 
           <Button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="w-full bg-green-600 hover:bg-green-500 text-white py-2 my-2 rounded-md focus:outline-none focus:ring focus:border-blue-300"
           >
             INGRESAR
           </Button>

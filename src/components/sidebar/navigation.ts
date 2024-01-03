@@ -15,23 +15,23 @@ export const privateRoutes = [
     path: "/vehiculos",
   },
   {
-    name: "Ramal",
-    path: "/ramal",
-  },
-  {
-    name: "Linea",
-    path: "/linea",
-  },
-  {
-    name: "Tag IPK",
-    path: "/tagIPK",
+    name: "Tag rotacion",
+    path: "/tagrotacion",
   },
   {
     name: "Tipo servicio",
     path: "/tiposervicio",
   },
   {
-    name: "Tag rotacion",
-    path: "/tagrotacion",
+    name: "Tag IPK",
+    path: "/tagIPK",
+  },
+  {
+    name: "Linea",
+    path: "/linea",
+  },
+  {
+    name: "Ramal",
+    path: "/ramal",
   },
 ];

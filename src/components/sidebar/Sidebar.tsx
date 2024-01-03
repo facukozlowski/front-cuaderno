@@ -43,7 +43,7 @@ const Sidebar = () => {
 
   return (
     <div className="flex">
-      <nav className="bg-blue-500 w-48 min-h-screen text-white">
+      <nav className="bg-orange-500 w-48 min-h-screen text-white">
         <div className="py-4">
           <div className="px-4 py-2">
             <button
@@ -53,7 +53,7 @@ const Sidebar = () => {
               <FaChevronLeft />
             </button>
           </div>
-          <div className="font-bold px-2 py-2 text-xl text-center text-orange-300 border-b border-white">
+          <div className="font-bold px-2 py-3 text-xl text-center text-gray-200 border-b border-white">
             Sistema Cuaderno
           </div>{" "}
           <ul>
@@ -62,8 +62,8 @@ const Sidebar = () => {
                 to="/"
                 className={`flex items-center px-4 py-2 ${
                   location.pathname === "/"
-                    ? "bg-sky-700 rounded"
-                    : "hover:bg-sky-500 rounded"
+                    ? "bg-green-700 rounded"
+                    : "hover:bg-green-500 rounded"
                 }`}
               >
                 <FaHome className="mr-2" /> Inicio
@@ -73,8 +73,8 @@ const Sidebar = () => {
               <div
                 className={`flex items-center px-4 py-2 cursor-pointer ${
                   location.pathname.includes("/configuracion")
-                    ? "bg-sky-700 rounded"
-                    : "hover:bg-sky-500 rounded"
+                    ? "bg-green-700 rounded"
+                    : "hover:bg-green-500 rounded"
                 }`}
                 onClick={toggleConfiguracion}
               >
@@ -89,8 +89,8 @@ const Sidebar = () => {
                           to={`/configuracion${path}`}
                           className={`block px-4 py-2 ${
                             location.pathname === `/configuracion${path}`
-                              ? "bg-sky-700 rounded"
-                              : "hover:bg-sky-500 rounded"
+                              ? "bg-green-700 rounded"
+                              : "hover:bg-green-500 rounded"
                           }`}
                         >
                           {name}
@@ -101,8 +101,8 @@ const Sidebar = () => {
                             to={`/configuracion${path}`}
                             className={`block px-4 py-2 ${
                               location.pathname === `/configuracion${path}`
-                                ? "bg-sky-700 rounded"
-                                : "hover:bg-sky-500 rounded"
+                                ? "bg-green-700 rounded"
+                                : "hover:bg-green-500 rounded"
                             }`}
                           >
                             {name}
@@ -117,8 +117,8 @@ const Sidebar = () => {
               <div
                 className={`flex items-center px-4 py-2 cursor-pointer ${
                   location.pathname === "/salir"
-                    ? "bg-sky-700 rounded"
-                    : "hover:bg-sky-500 rounded"
+                    ? "bg-green-700 rounded"
+                    : "hover:bg-green-500 rounded"
                 }`}
                 onClick={() => {
                   logout();

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../components/context/AuthContext";
 import { Card } from "../components/ui";
+import MaterialTable from "../components/MaterialTable";
 
 const Conductores = () => {
   const { listConductores } = useAuth();
-  const [Conductores, setConductores] = useState<any[]>([]);
+  const [conductores, setConductores] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchConductores = async () => {
@@ -21,36 +22,22 @@ const Conductores = () => {
     fetchConductores();
   }, [listConductores]);
 
+  const columns = [
+    { id: "legajo", label: "Legajo" },
+    { id: "apellidonombre", label: "Apellido y Nombre" },
+    { id: "fechabaja", label: "Fecha de baja" },
+    { id: "categoria", label: "Categoría" },
+  ];
+
   return (
-    <div className="h-[calc(100vh-0rem)] flex items-center justify-center bg-blue-600">
+    <div className="flex items-center justify-center bg-orange-600">
       <Card>
-        <h1 className="text-2xl font-bold text-white text-center">
+        <h1 className="text-3xl font-bold text-white text-center py-5 mb-10">
           LISTADO DE CONDUCTORES
         </h1>
 
-        {Conductores.length > 0 && (
-          <table className="mt-4 w-full border-collapse border text-white">
-            <thead>
-              <tr>
-                <th className="p-3 border">Legajo</th>
-                <th className="p-3 border">Apellido y Nombre</th>
-                <th className="p-3 border">Categoría</th>
-                <th className="p-3 border">Fecha de baja</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Conductores.map((conductor) => (
-                <tr key={conductor.id || conductor.legajo} className="border">
-                  <td className="p-3 text-center">{conductor.legajo}</td>
-                  <td className="p-3 text-center">
-                    {conductor.apellidonombre}
-                  </td>
-                  <td className="p-3 text-center">{conductor.categoria}</td>
-                  <td className="p-3 text-center">{conductor.fechabaja}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {conductores.length > 0 && (
+          <MaterialTable columns={columns} data={conductores} />
         )}
       </Card>
     </div>

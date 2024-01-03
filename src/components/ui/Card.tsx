@@ -5,8 +5,14 @@ interface CardProps {
   className?: string;
 }
 
-const Card: React.FC<CardProps> = ({ children }) => {
-  return <div className="bg-zinc-900 p-16 rounded-md">{children}</div>;
+const Card: React.FC<CardProps> = ({ children, className }) => {
+  return (
+    <div
+      className={`bg-orange-600 p-16 rounded-md h-screen w-full ${className}`}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Card;
