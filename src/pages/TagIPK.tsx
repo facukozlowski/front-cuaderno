@@ -35,8 +35,6 @@ const TagIPK = () => {
   return (
     <div className="h-[calc(100vh-0rem)] flex items-center justify-center bg-orange-600 ">
       <Card>
-        <h1>Tag IPK</h1>
-
         {tagIpk.length > 0 && <MaterialTable columns={columns} data={tagIpk} />}
 
         {tagIpk.length === 0 && (

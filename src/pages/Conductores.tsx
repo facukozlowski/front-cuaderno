@@ -32,10 +32,6 @@ const Conductores = () => {
   return (
     <div className="flex items-center justify-center bg-orange-600">
       <Card>
-        <h1 className="text-3xl font-bold text-white text-center py-5 mb-10">
-          LISTADO DE CONDUCTORES
-        </h1>
-
         {conductores.length > 0 && (
           <MaterialTable columns={columns} data={conductores} />
         )}

@@ -35,8 +35,6 @@ const TipoServ = () => {
   return (
     <div className="h-[calc(100vh-0rem)] flex items-center justify-center bg-orange-600 ">
       <Card>
-        <h1>Tipo Servicio</h1>
-
         {tipoServicio.length > 0 && (
           <MaterialTable columns={columns} data={tipoServicio} />
         )}

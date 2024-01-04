@@ -31,7 +31,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
@@ -68,11 +68,11 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
         margin="normal"
         value={searchTerm}
         onChange={handleSearch}
-        className="mb-4"
+        className="mb-2"
       />
 
       <TableContainer component={Paper} className="mb-4">
-        <Table className="min-w-full my-5">
+        <Table className="min-w-full my-10">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -105,7 +105,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        className="mb-4"
+        className="mb-2"
       />
     </div>
   );
