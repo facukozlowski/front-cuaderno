@@ -69,14 +69,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         localStorage.setItem("role", userRole);
         setRole(userRole);
 
-        const userResponse = await axios.get("http://localhost:3000/users", {
-          headers: {
-            Authorization: response.data.token,
-          },
-        });
-        const userData = userResponse.data[0];
-
-        setUser(userData);
         setIsAuth(true);
       } else {
         throw new Error("Token no recibido del servidor");
@@ -86,8 +78,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.log("Mensaje de error:", err.response.data.message);
         setErrors([err.response.data.message]);
       } else {
-        console.error("Error desconocido:", err);
-        setErrors(["Error desconocido"]);
+        console.error("Error al iniciar sesión", err);
+        setErrors(["Error al iniciar sesión"]);
       }
     }
   };

@@ -17,7 +17,6 @@ const Login: React.FC = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     await login(data);
-    navigate("/");
   });
 
   return (
@@ -25,7 +24,10 @@ const Login: React.FC = () => {
       <Card className="bg-orange-500 max-w-md rounded-md">
         {errors &&
           errors.map((err, index) => (
-            <p key={index} className="text-red-500 text-center">
+            <p
+              key={index}
+              className="text-gray-300 text-center bg-black rounded-sm"
+            >
               {err}
             </p>
           ))}
