@@ -34,12 +34,8 @@ const Vehiculos = () => {
   ];
 
   return (
-    <div className="h-[calc(100vh-0rem)] flex items-center justify-center bg-blue-600">
+    <div className="h-[calc(100vh-0rem)] flex items-center justify-center bg-orange-600">
       <Card>
-        <h1 className="text-2xl font-bold text-white text-center mb-5">
-          LISTADO DE VEHÍCULOS DISPONIBLES
-        </h1>
-
         {vehiculos.length > 0 && (
           <MaterialTable columns={columns} data={vehiculos} />
         )}

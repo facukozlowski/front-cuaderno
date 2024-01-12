@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../components/context/AuthContext";
 import { Card } from "../components/ui";
 import MaterialTable from "../components/MaterialTable";
+import { CircularProgress } from "@mui/material";
 
 const Lineas = () => {
   const { listLineas } = useAuth();
   const [lineas, setLineas] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchedLineas = async () => {
@@ -13,8 +15,10 @@ const Lineas = () => {
         const fetchedLineas = await listLineas();
         if (Array.isArray(fetchedLineas)) {
           setLineas(fetchedLineas);
+          setIsLoading(false);
         }
       } catch (error) {
+        setIsLoading(false);
         console.error("Error al listar líneas", error);
       }
     };
@@ -34,15 +38,17 @@ const Lineas = () => {
 
   return (
     <div className="h-[calc(100vh-0rem)] flex items-center justify-center bg-orange-600 ">
-      <Card>
-        {lineas.length > 0 && <MaterialTable columns={columns} data={lineas} />}
-
-        {lineas.length === 0 && (
-          <p className="text-white text-center mt-4">
-            No hay datos disponibles.
-          </p>
-        )}
-      </Card>
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <Card>
+            {lineas.length > 0 && (
+              <MaterialTable columns={columns} data={lineas} />
+            )}
+          </Card>
+        </>
+      )}
     </div>
   );
 };

@@ -34,4 +34,8 @@ export const privateRoutes = [
     name: "Ramal",
     path: "/ramal",
   },
+  {
+    name: "Esquema",
+    path: "/esquema",
+  },
 ];

@@ -14,12 +14,15 @@ interface AuthContextProps {
   role: string | undefined;
   errors: string[] | null;
   createUser: (data: any) => Promise<void>;
+  createEsquema: (data: any) => Promise<void>;
   deleteUser: (data: any) => Promise<void>;
   login: (data: any) => Promise<void>;
   logout: () => void;
   listUsers: () => Promise<void | any[]>;
+  listEsquema: () => Promise<void | any[]>;
   listConductores: () => Promise<void>;
   listVehiculos: () => Promise<void>;
+  listLicencias: () => Promise<void>;
   listRotacion: () => Promise<void>;
   listServicio: () => Promise<void>;
   listIPK: () => Promise<void>;
@@ -102,6 +105,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const listEsquema = async (): Promise<any[]> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/configuracion/esquema",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      const esquemaData = response.data;
+      console.log("Esquema Data:", esquemaData);
+
+      return response.data || [];
+    } catch (error) {
+      console.error("Error al obtener la lista de esquemas:", error);
+      throw error;
+    }
+  };
+
   const listConductores = async (): Promise<any> => {
     try {
       const token = localStorage.getItem("token");
@@ -125,6 +150,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const token = localStorage.getItem("token");
       const response: AxiosResponse<any> = await axios.get(
         "http://localhost:3000/configuracion/vehiculos",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const listLicencias = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/configuracion/licencias",
         {
           headers: {
             Authorization: token,
@@ -228,6 +271,29 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const createEsquema = async (data: any): Promise<void> => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response: AxiosResponse<any> = await axios.post(
+        "http://localhost:3000/configuracion/esquema",
+        data,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      console.log(response);
+      toast.success("Esquema creado con éxito");
+    } catch (error) {
+      console.error("Error al crear nuevo esquema:", error);
+
+      toast.error("Error al crear el esquema");
+    }
+  };
+
   const createUser = async (data: any): Promise<void> => {
     try {
       const token = localStorage.getItem("token");
@@ -324,10 +390,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     role,
     errors,
     createUser,
+    createEsquema,
     deleteUser,
     listUsers,
+    listEsquema,
     listConductores,
     listVehiculos,
+    listLicencias,
     listRotacion,
     listServicio,
     listIPK,

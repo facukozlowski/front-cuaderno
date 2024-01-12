@@ -12,6 +12,7 @@ import Ramal from "./pages/Ramal";
 import Sidebar from "./components/sidebar/Sidebar";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import { useAuth } from "./components/context/AuthContext";
+import EsquemaForm from "./pages/Esquema";
 
 const App = () => {
   const { isAuth } = useAuth();
@@ -62,6 +63,7 @@ const ConfiguracionRoutes = () => (
     <Route path="tagIPK" element={<TagIPK />} />
     <Route path="linea" element={<Lineas />} />
     <Route path="ramal" element={<Ramal />} />
+    <Route path="esquema" element={<EsquemaForm />} />
   </Routes>
 );
 
