@@ -7,6 +7,8 @@ import React, {
   ReactNode,
 } from "react";
 import { toast } from "react-toastify";
+import { CircularProgress } from "@mui/material";
+import Login from "../../pages/Login";
 
 interface AuthContextProps {
   user: string | undefined;
@@ -119,6 +121,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       );
 
       const esquemaData = response.data;
+
       return response.data || [];
     } catch (error) {
       console.error("Error al obtener la lista de esquemas:", error);
@@ -345,6 +348,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     setIsAuth(false);
+    setLoading(false);
+    console.log(loading);
   };
 
   useEffect(() => {
@@ -370,14 +375,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           console.error("Error al verificar la autenticación:", error);
           logout();
         }
-      } else {
-        setIsAuth(false);
-        setLoading(false);
       }
+      setLoading(false);
     };
 
     checkAuth();
-  }, [setUser, setRole, setIsAuth, logout, setLoading]);
+  }, [setUser, setRole, setIsAuth, logout]);
 
   const contextValue: AuthContextProps = {
     user,
@@ -402,6 +405,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
   };
 
+  if (loading) {
+    return <CircularProgress />;
+  }
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );

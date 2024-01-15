@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../components/context/AuthContext";
 import { Card } from "../components/ui";
 import MaterialTable from "../components/MaterialTable";
+import { CircularProgress } from "@mui/material";
 
 const Ramal = () => {
   const { listRamal } = useAuth();
@@ -37,11 +38,7 @@ const Ramal = () => {
       <Card>
         {ramal.length > 0 && <MaterialTable columns={columns} data={ramal} />}
 
-        {ramal.length === 0 && (
-          <p className="text-white text-center mt-4">
-            No hay datos disponibles.
-          </p>
-        )}
+        {ramal.length === 0 && <CircularProgress />}
       </Card>
     </div>
   );

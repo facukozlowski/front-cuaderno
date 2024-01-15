@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../components/context/AuthContext";
 import { Card } from "../components/ui";
 import MaterialTable from "../components/MaterialTable";
+import { CircularProgress } from "@mui/material";
 
 const TagRotacion = () => {
   const { listRotacion } = useAuth();
@@ -39,11 +40,7 @@ const TagRotacion = () => {
           <MaterialTable columns={columns} data={rotacion} />
         )}
 
-        {rotacion.length === 0 && (
-          <p className="text-white text-center mt-4">
-            No hay datos disponibles.
-          </p>
-        )}
+        {rotacion.length === 0 && <CircularProgress />}
       </Card>
     </div>
   );

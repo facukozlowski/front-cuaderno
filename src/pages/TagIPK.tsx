@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../components/context/AuthContext";
 import { Card } from "../components/ui";
 import MaterialTable from "../components/MaterialTable";
+import { CircularProgress } from "@mui/material";
 
 const TagIPK = () => {
   const { listIPK } = useAuth();
@@ -37,11 +38,7 @@ const TagIPK = () => {
       <Card>
         {tagIpk.length > 0 && <MaterialTable columns={columns} data={tagIpk} />}
 
-        {tagIpk.length === 0 && (
-          <p className="text-white text-center mt-4">
-            No hay datos disponibles.
-          </p>
-        )}
+        {tagIpk.length === 0 && <CircularProgress />}
       </Card>
     </div>
   );

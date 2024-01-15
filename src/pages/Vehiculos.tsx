@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../components/context/AuthContext";
 import { Card } from "../components/ui";
 import MaterialTable from "../components/MaterialTable";
+import { CircularProgress } from "@mui/material";
 
 const Vehiculos = () => {
   const { listVehiculos } = useAuth();
@@ -40,11 +41,7 @@ const Vehiculos = () => {
           <MaterialTable columns={columns} data={vehiculos} />
         )}
 
-        {vehiculos.length === 0 && (
-          <p className="text-white text-center mt-4">
-            No hay vehículos disponibles.
-          </p>
-        )}
+        {vehiculos.length === 0 && <CircularProgress />}
       </Card>
     </div>
   );
