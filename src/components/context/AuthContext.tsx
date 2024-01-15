@@ -13,6 +13,7 @@ interface AuthContextProps {
   isAuth: boolean;
   role: string | undefined;
   errors: string[] | null;
+  loading: boolean | null;
   createUser: (data: any) => Promise<void>;
   createEsquema: (data: any) => Promise<void>;
   deleteUser: (data: any) => Promise<void>;
@@ -20,14 +21,14 @@ interface AuthContextProps {
   logout: () => void;
   listUsers: () => Promise<void | any[]>;
   listEsquema: () => Promise<void | any[]>;
-  listConductores: () => Promise<void>;
-  listVehiculos: () => Promise<void>;
-  listLicencias: () => Promise<void>;
-  listRotacion: () => Promise<void>;
-  listServicio: () => Promise<void>;
-  listIPK: () => Promise<void>;
-  listLineas: () => Promise<void>;
-  listRamal: () => Promise<void>;
+  listConductores: () => Promise<void | any[]>;
+  listVehiculos: () => Promise<void | any[]>;
+  listLicencias: () => Promise<void | any[]>;
+  listRotacion: () => Promise<void | any[]>;
+  listServicio: () => Promise<void | any[]>;
+  listIPK: () => Promise<void | any[]>;
+  listLineas: () => Promise<void | any[]>;
+  listRamal: () => Promise<void | any[]>;
 }
 
 interface AuthProviderProps {
@@ -118,8 +119,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       );
 
       const esquemaData = response.data;
-      console.log("Esquema Data:", esquemaData);
-
       return response.data || [];
     } catch (error) {
       console.error("Error al obtener la lista de esquemas:", error);
@@ -235,7 +234,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const listLineas = async (): Promise<any> => {
+  const listLineas = async (): Promise<any[]> => {
     try {
       const token = localStorage.getItem("token");
       const response: AxiosResponse<any> = await axios.get(
@@ -369,26 +368,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setIsAuth(true);
         } catch (error) {
           console.error("Error al verificar la autenticación:", error);
-
-          if (error) {
-            logout();
-          }
-        } finally {
-          setLoading(false);
+          logout();
         }
       } else {
+        setIsAuth(false);
         setLoading(false);
       }
     };
 
     checkAuth();
-  }, [setUser, setRole, setIsAuth, logout]);
+  }, [setUser, setRole, setIsAuth, logout, setLoading]);
 
   const contextValue: AuthContextProps = {
     user,
     isAuth,
     role,
     errors,
+    loading,
     createUser,
     createEsquema,
     deleteUser,

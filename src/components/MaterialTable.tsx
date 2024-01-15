@@ -87,7 +87,10 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
                 className={index % 2 === 0 ? "bg-gray-100" : ""}
               >
                 {columns.map((column) => (
-                  <TableCell key={column.id} className="py-2 px-4">
+                  <TableCell
+                    key={column.id}
+                    className="py-2 px-4 md:w-1/12 sm:w-1/6"
+                  >
                     {row[column.id]}
                   </TableCell>
                 ))}

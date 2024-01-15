@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../components/context/AuthContext";
 import EsquemaModal from "../components/EsquemaModal";
 import MaterialTable from "../components/MaterialTable";
-import { Button } from "../components/ui";
 import { CircularProgress } from "@mui/material";
+import { Button } from "../components/ui";
 
 const EsquemaPage = () => {
   const { listEsquema } = useAuth();
@@ -38,30 +38,36 @@ const EsquemaPage = () => {
     { id: "idEsquema", label: "Id" },
     { id: "descripcionLinea", label: "Linea" },
     { id: "descripcionRamal", label: "Ramal" },
-    { id: "conductorMT", label: "Conductor MT" },
-    { id: "conductorMS", label: "Conductor MS" },
-    { id: "conductorTT", label: "Conductor T.T" },
-    { id: "conductorTS", label: "Conductor T.S" },
-    { id: "conductorNT", label: "Conductor N.T" },
-    { id: "conductorNS", label: "Conductor N.S" },
-    { id: "cocheTitular", label: "Coche T" },
-    { id: "cocheSuplente", label: "Coche S" },
+    { id: "conductorMT", label: "Chofer Mañana Tit." },
+    { id: "conductorMS", label: "Chofer Mañana Sup." },
+    { id: "conductorTT", label: "Chofer Tarde Tit." },
+    { id: "conductorTS", label: "Chofer Tarde Sup." },
+    { id: "conductorNT", label: "Chofer Nocturno Tit." },
+    { id: "conductorNS", label: "Chofer Nocturno Sup." },
+    { id: "cocheTitular", label: "Coche Tit." },
+    { id: "cocheSuplente", label: "Coche Sup." },
     { id: "tagIPK", label: "IPK" },
-    { id: "tipoServicio", label: "Tipo Servicio" },
-    { id: "tipoLicencia", label: "Tipo Licencia" },
-    { id: "tagRotacion", label: "Tag Rotacion" },
+    { id: "tipoServicio", label: "Servicio" },
+    { id: "tipoLicencia", label: "Licencia" },
+    { id: "tagRotacion", label: "Rotacion" },
+    { id: "Acción", label: "Acción" },
   ];
 
   return (
-    <div className="h-[calc(100vh)] flex items-center justify-center bg-orange-600">
+    <div className="h-screen flex flex-col items-center justify-center bg-orange-600">
       {isLoading ? (
         <CircularProgress />
       ) : (
         <>
           <MaterialTable columns={columns} data={esquemas} />
 
-          <div>
-            <Button onClick={openModal}>Crear Nuevo Esquema</Button>
+          <div className="mt-4">
+            <Button
+              onClick={openModal}
+              className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-md focus:outline-none"
+            >
+              Nuevo Esquema
+            </Button>
           </div>
         </>
       )}
