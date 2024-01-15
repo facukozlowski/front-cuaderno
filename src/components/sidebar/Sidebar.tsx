@@ -53,9 +53,10 @@ const Sidebar = () => {
               <FaChevronLeft />
             </button>
           </div>
+
           <div className="font-bold px-2 py-3 text-xl text-center text-gray-200 border-b border-white">
             Sistema Cuaderno
-          </div>{" "}
+          </div>
           <ul>
             <li>
               <Link
@@ -129,7 +130,14 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
+
+        <img
+          src="/logo_susa.jpg"
+          alt="Logo Empresa"
+          className="w-48 h-14 mb-0 absolute bottom-0"
+        />
       </nav>
+
       <div className="flex-1"></div>
     </div>
   );
