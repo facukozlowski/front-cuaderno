@@ -32,24 +32,16 @@ const EsquemaPage = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [listEsquema]);
 
   const columns = [
     { id: "idEsquema", label: "Id" },
     { id: "descripcionLinea", label: "Linea" },
     { id: "descripcionRamal", label: "Ramal" },
-    { id: "conductorMT", label: "Chofer Mañana Tit." },
-    { id: "conductorMS", label: "Chofer Mañana Sup." },
-    { id: "conductorTT", label: "Chofer Tarde Tit." },
-    { id: "conductorTS", label: "Chofer Tarde Sup." },
-    { id: "conductorNT", label: "Chofer Nocturno Tit." },
-    { id: "conductorNS", label: "Chofer Nocturno Sup." },
     { id: "cocheTitular", label: "Coche Tit." },
-    { id: "cocheSuplente", label: "Coche Sup." },
-    { id: "tagIPK", label: "IPK" },
-    { id: "tipoServicio", label: "Servicio" },
-    { id: "tipoLicencia", label: "Licencia" },
-    { id: "tagRotacion", label: "Rotacion" },
+    { id: "conductorMT", label: "Chofer Mañana Tit." },
+    { id: "conductorTT", label: "Chofer Tarde Tit." },
+    { id: "conductorNT", label: "Chofer Nocturno Tit." },
     { id: "Acción", label: "Acción" },
   ];
 
@@ -61,7 +53,7 @@ const EsquemaPage = () => {
         <>
           <div
             className="max-h-screen overflow-hidden w-full"
-            style={{ maxWidth: "95%", maxHeight: "80%", overflowX: "hidden" }}
+            style={{ maxWidth: "95%", maxHeight: "90%", overflowX: "hidden" }}
           >
             <MaterialTable columns={columns} data={esquemas} />
           </div>

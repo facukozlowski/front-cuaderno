@@ -250,7 +250,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
+                        <MenuItem value={0}>.</MenuItem>
                         {conductores.map((legajo) => (
                           <MenuItem key={legajo.id} value={legajo.id}>
                             {legajo.apellidonombre}
@@ -272,7 +272,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
+                        <MenuItem value={0}>.</MenuItem>
                         {conductores.map((legajo) => (
                           <MenuItem key={legajo.id} value={legajo.id}>
                             {legajo.apellidonombre}
@@ -294,7 +294,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
+                        <MenuItem value={0}>.</MenuItem>
                         {conductores.map((legajo) => (
                           <MenuItem key={legajo.id} value={legajo.id}>
                             {legajo.apellidonombre}
@@ -316,7 +316,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
+                        <MenuItem value={0}>.</MenuItem>
                         {conductores.map((legajo) => (
                           <MenuItem key={legajo.id} value={legajo.id}>
                             {legajo.apellidonombre}
@@ -338,7 +338,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
+                        <MenuItem value={0}>.</MenuItem>
 
                         {conductores.map((legajo) => (
                           <MenuItem key={legajo.id} value={legajo.id}>
@@ -361,7 +361,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
+                        <MenuItem value={0}>.</MenuItem>
 
                         {conductores.map((legajo) => (
                           <MenuItem key={legajo.id} value={legajo.id}>
@@ -384,7 +384,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
+                        <MenuItem value={0}></MenuItem>
 
                         {vehiculos.map((interno) => (
                           <MenuItem key={interno.id} value={interno.id}>
@@ -407,7 +407,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
+                        <MenuItem value={0}></MenuItem>
 
                         {vehiculos.map((interno) => (
                           <MenuItem key={interno.id} value={interno.id}>
@@ -430,7 +430,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
+                        <MenuItem value={0}></MenuItem>
 
                         {tagIpk.map((ipk) => (
                           <MenuItem key={ipk.id} value={ipk.id}>
@@ -479,7 +479,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
+                        <MenuItem value={0}>{null}</MenuItem>
 
                         {tipoLicencia.map((tipoLicencia) => (
                           <MenuItem
@@ -497,7 +497,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                     <FormControl fullWidth>
                       <Select
                         name="idTagRotacion"
-                        value={formData.idTagRotacion}
+                        value={formData.idTagRotacion || 0}
                         onChange={(e) =>
                           handleSelectChange(
                             "idTagRotacion",
@@ -505,8 +505,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                           )
                         }
                       >
-                        <MenuItem value={0}>-</MenuItem>
-
+                        <MenuItem value={0}>Seleccionar</MenuItem>
                         {tagRotacion.map((tagRotacion) => (
                           <MenuItem key={tagRotacion.id} value={tagRotacion.id}>
                             {tagRotacion.descripcion}

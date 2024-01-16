@@ -21,7 +21,7 @@ const TipoServ = () => {
     };
 
     fetchedTipoServicio();
-  }, [tipoServicio]);
+  }, []);
 
   interface Column {
     id: string;

@@ -24,7 +24,7 @@ const Lineas = () => {
     };
 
     fetchedLineas();
-  }, [lineas]);
+  }, []);
 
   interface Column {
     id: string;

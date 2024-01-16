@@ -21,7 +21,7 @@ const Ramal = () => {
     };
 
     fetchedRamal();
-  }, [ramal]);
+  }, []);
 
   interface Column {
     id: string;

@@ -74,7 +74,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
       <TableContainer
         component={Paper}
         className="mb-4"
-        style={{ maxHeight: "500px" }}
+        style={{ overflowY: "auto", maxHeight: "420px" }}
       >
         <Table className="min-w-full my-10">
           <TableHead className="bg-gray-200" style={{ whiteSpace: "nowrap" }}>
@@ -110,6 +110,10 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage="Filas por página"
+        labelDisplayedRows={({ from, to, count }) =>
+          `${from}-${to} de ${count}`
+        }
         className="mb-2"
       />
     </div>

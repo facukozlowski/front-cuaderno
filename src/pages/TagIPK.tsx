@@ -21,7 +21,7 @@ const TagIPK = () => {
     };
 
     fetchedTagIpk();
-  }, [tagIpk]);
+  }, []);
 
   interface Column {
     id: string;

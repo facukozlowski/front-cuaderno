@@ -21,7 +21,7 @@ const TagRotacion = () => {
     };
 
     fetchedRotacion();
-  }, [rotacion]);
+  }, []);
 
   interface Column {
     id: string;
