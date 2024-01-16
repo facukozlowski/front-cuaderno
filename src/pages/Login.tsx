@@ -17,6 +17,9 @@ const Login: React.FC = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     await login(data);
+    if (isAuth) {
+      navigate("/");
+    }
   });
 
   return (

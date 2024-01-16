@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
-import Login from "../../pages/Login";
 
 interface AuthContextProps {
   user: string | undefined;
@@ -119,8 +118,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           },
         }
       );
-
-      const esquemaData = response.data;
 
       return response.data || [];
     } catch (error) {
@@ -299,7 +296,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const createUser = async (data: any): Promise<void> => {
     try {
       const token = localStorage.getItem("token");
-      const userRole = localStorage.getItem("role");
 
       const response: AxiosResponse<any> = await axios.post(
         "http://localhost:3000/users",
@@ -323,7 +319,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const deleteUser = async (data: any): Promise<void> => {
     try {
       const token = localStorage.getItem("token");
-      const userRole = localStorage.getItem("role");
 
       const response: AxiosResponse<any> = await axios.put(
         "http://localhost:3000/users",
@@ -349,7 +344,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem("role");
     setIsAuth(false);
     setLoading(false);
-    console.log(loading);
+    setErrors([]);
   };
 
   useEffect(() => {

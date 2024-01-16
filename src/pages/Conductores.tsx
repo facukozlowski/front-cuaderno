@@ -20,7 +20,7 @@ const Conductores = () => {
     };
 
     fetchConductores();
-  }, [listConductores]);
+  }, []);
 
   const columns = [
     { id: "legajo", label: "Legajo" },
