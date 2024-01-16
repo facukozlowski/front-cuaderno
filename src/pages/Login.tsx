@@ -22,16 +22,6 @@ const Login: React.FC = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-orange-600">
       <Card className="bg-orange-500 max-w-md rounded-md">
-        {errors &&
-          errors.map((err, index) => (
-            <p
-              key={index}
-              className="text-gray-300 text-center bg-black rounded-sm"
-            >
-              {err}
-            </p>
-          ))}
-
         <h1 className="text-3xl font-bold mb-6 text-center py-10 text-white">
           INICIAR SESIÓN
         </h1>
@@ -68,6 +58,17 @@ const Login: React.FC = () => {
           >
             INGRESAR
           </Button>
+          <div className="mt-5">
+            {errors &&
+              errors.map((err, index) => (
+                <p
+                  key={index}
+                  className="text-white text-center bg-red-600 rounded-md p-1 text-lg"
+                >
+                  {err}
+                </p>
+              ))}
+          </div>
         </form>
       </Card>
     </div>
