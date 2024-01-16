@@ -59,7 +59,12 @@ const EsquemaPage = () => {
         <CircularProgress />
       ) : (
         <>
-          <MaterialTable columns={columns} data={esquemas} />
+          <div
+            className="max-h-screen overflow-hidden w-full"
+            style={{ maxWidth: "95%", maxHeight: "80%", overflowX: "hidden" }}
+          >
+            <MaterialTable columns={columns} data={esquemas} />
+          </div>
 
           <div className="mt-4">
             <Button

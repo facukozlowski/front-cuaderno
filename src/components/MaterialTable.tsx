@@ -71,9 +71,13 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
         className="mb-2"
       />
 
-      <TableContainer component={Paper} className="mb-4">
+      <TableContainer
+        component={Paper}
+        className="mb-4"
+        style={{ maxHeight: "500px" }}
+      >
         <Table className="min-w-full my-10">
-          <TableHead>
+          <TableHead className="bg-gray-200" style={{ whiteSpace: "nowrap" }}>
             <TableRow>
               {columns.map((column) => (
                 <TableCell key={column.id}>{column.label}</TableCell>
@@ -82,12 +86,10 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
           </TableHead>
           <TableBody>
             {paginatedData.map((row, index) => (
-              <TableRow
-                key={index}
-                className={index % 2 === 0 ? "bg-gray-100" : ""}
-              >
+              <TableRow key={index}>
                 {columns.map((column) => (
                   <TableCell
+                    style={{ whiteSpace: "nowrap" }}
                     key={column.id}
                     className="py-2 px-4 md:w-1/12 sm:w-1/6"
                   >
