@@ -7,6 +7,9 @@ import {
   Select,
   MenuItem,
   FormControl,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 
 interface FormData {
@@ -20,6 +23,8 @@ interface FormData {
   idConductorTS: number;
   idConductorNT: number;
   idConductorNS: number;
+  idModelo: number;
+  idGaraje: number;
   idTagIPK: number;
   idTipoServicio: number;
   idTipoLicencia: number;
@@ -38,6 +43,8 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
     listRamal,
     listConductores,
     listVehiculos,
+    listModelo,
+    listGaraje,
     listIPK,
     listServicio,
     listLicencias,
@@ -55,6 +62,8 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
     idConductorTS: 0,
     idConductorNT: 0,
     idConductorNS: 0,
+    idModelo: 0,
+    idGaraje: 0,
     idTagIPK: 0,
     idTipoServicio: 0,
     idTipoLicencia: 0,
@@ -65,6 +74,8 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
   const [ramal, setRamal] = useState<any[]>([]);
   const [conductores, setConductores] = useState<any[]>([]);
   const [vehiculos, setVehiculos] = useState<any[]>([]);
+  const [modelos, setModelos] = useState<any[]>([]);
+  const [garajes, setGarajes] = useState<any[]>([]);
   const [tagIpk, setTagIpk] = useState<any[]>([]);
   const [tipoServicio, setTipoServicio] = useState<any[]>([]);
   const [tipoLicencia, setTipoLicencia] = useState<any[]>([]);
@@ -104,6 +115,24 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
         setVehiculos(vehiculosData || []);
       } catch (error) {
         console.error("Error al obtener los vehículos", error);
+      }
+    };
+
+    const fetchModelos = async () => {
+      try {
+        const modelosData = await listModelo();
+        setModelos(modelosData || []);
+      } catch (error) {
+        console.error("Error al obtener los modelos", error);
+      }
+    };
+
+    const fetchGarajes = async () => {
+      try {
+        const garajesData = await listGaraje();
+        setGarajes(garajesData || []);
+      } catch (error) {
+        console.error("Error al obtener los modelos", error);
       }
     };
 
@@ -147,6 +176,8 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
     fetchRamales();
     fetchConductores();
     fetchVehiculos();
+    fetchModelos();
+    fetchGarajes();
     fetchTagIpk();
     fetchTipoServicio();
     fetchTipoLicencia();
@@ -156,6 +187,8 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
     listRamal,
     listConductores,
     listVehiculos,
+    listModelo,
+    listGaraje,
     listIPK,
     listServicio,
     listLicencias,
@@ -172,10 +205,26 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await createEsquema(formData);
+      console.log("FormData antes de enviar:", {
+        ...formData,
+        idModelo: selectedModelos,
+      });
+      await createEsquema({ ...formData, idModelo: [selectedModelos] });
       onSubmit();
     } catch (error) {
       console.error("Error al crear esquema:", error);
+    }
+  };
+
+  const [selectedModelos, setSelectedModelos] = useState<number[]>([]);
+
+  const handleModeloChange = (idModelo: number) => {
+    if (selectedModelos.includes(idModelo)) {
+      setSelectedModelos((prevSelected) =>
+        prevSelected.filter((id) => id !== idModelo)
+      );
+    } else {
+      setSelectedModelos((prevSelected) => [...prevSelected, idModelo]);
     }
   };
 
@@ -232,6 +281,52 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                         {ramal.map((ramal) => (
                           <MenuItem key={ramal.id} value={ramal.id}>
                             {ramal.descripcion}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Label>
+                  <Label htmlFor="idCocheTitular" className="mb-4">
+                    Coche Titular:
+                    <FormControl fullWidth>
+                      <Select
+                        name="idCocheTitular"
+                        value={formData.idCocheTitular}
+                        onChange={(e) =>
+                          handleSelectChange(
+                            "idCocheTitular",
+                            e.target.value as number
+                          )
+                        }
+                      >
+                        <MenuItem value={0}></MenuItem>
+
+                        {vehiculos.map((interno) => (
+                          <MenuItem key={interno.id} value={interno.id}>
+                            {interno.id}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Label>
+                  <Label htmlFor="idCocheSuplente" className="mb-4">
+                    Coche Suplente:
+                    <FormControl fullWidth>
+                      <Select
+                        name="idCocheSuplente"
+                        value={formData.idCocheSuplente}
+                        onChange={(e) =>
+                          handleSelectChange(
+                            "idCocheSuplente",
+                            e.target.value as number
+                          )
+                        }
+                      >
+                        <MenuItem value={0}></MenuItem>
+
+                        {vehiculos.map((interno) => (
+                          <MenuItem key={interno.id} value={interno.id}>
+                            {interno.id}
                           </MenuItem>
                         ))}
                       </Select>
@@ -371,47 +466,44 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                       </Select>
                     </FormControl>
                   </Label>
-                  <Label htmlFor="idCocheTitular" className="mb-4">
-                    Coche Titular:
+                  <Label htmlFor="idModelo" className="mb-4">
+                    Modelos:
                     <FormControl fullWidth>
-                      <Select
-                        name="idCocheTitular"
-                        value={formData.idCocheTitular}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idCocheTitular",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}></MenuItem>
-
-                        {vehiculos.map((interno) => (
-                          <MenuItem key={interno.id} value={interno.id}>
-                            {interno.id}
-                          </MenuItem>
+                      <FormGroup>
+                        {modelos.map((modelo) => (
+                          <FormControlLabel
+                            key={modelo.idModelo}
+                            control={
+                              <Checkbox
+                                checked={selectedModelos.includes(modelo.id)}
+                                onChange={() => handleModeloChange(modelo.id)}
+                              />
+                            }
+                            label={modelo.descripcion}
+                          />
                         ))}
-                      </Select>
+                      </FormGroup>
                     </FormControl>
                   </Label>
-                  <Label htmlFor="idCocheSuplente" className="mb-4">
-                    Coche Suplente:
+
+                  <Label htmlFor="idGaraje" className="mb-4">
+                    Garaje:
                     <FormControl fullWidth>
                       <Select
-                        name="idCocheSuplente"
-                        value={formData.idCocheSuplente}
+                        name="idGaraje"
+                        value={formData.idGaraje}
                         onChange={(e) =>
                           handleSelectChange(
-                            "idCocheSuplente",
+                            "idGaraje",
                             e.target.value as number
                           )
                         }
                       >
                         <MenuItem value={0}></MenuItem>
 
-                        {vehiculos.map((interno) => (
-                          <MenuItem key={interno.id} value={interno.id}>
-                            {interno.id}
+                        {garajes.map((garaje) => (
+                          <MenuItem key={garaje.id} value={garaje.id}>
+                            {garaje.descripcion}
                           </MenuItem>
                         ))}
                       </Select>

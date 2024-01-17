@@ -24,6 +24,8 @@ interface AuthContextProps {
   listEsquema: () => Promise<void | any[]>;
   listConductores: () => Promise<void | any[]>;
   listVehiculos: () => Promise<void | any[]>;
+  listModelo: () => Promise<void | any[]>;
+  listGaraje: () => Promise<void | any[]>;
   listLicencias: () => Promise<void | any[]>;
   listRotacion: () => Promise<void | any[]>;
   listServicio: () => Promise<void | any[]>;
@@ -149,6 +151,42 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const token = localStorage.getItem("token");
       const response: AxiosResponse<any> = await axios.get(
         "http://localhost:3000/configuracion/vehiculos",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const listModelo = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/configuracion/modelo",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const listGaraje = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/configuracion/garaje",
         {
           headers: {
             Authorization: token,
@@ -390,6 +428,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     listEsquema,
     listConductores,
     listVehiculos,
+    listModelo,
+    listGaraje,
     listLicencias,
     listRotacion,
     listServicio,

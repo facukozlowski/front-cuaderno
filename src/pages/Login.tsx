@@ -74,6 +74,7 @@ const Login: React.FC = () => {
           </div>
         </form>
       </Card>
+      <footer className="footer">Servicios Urbanos S.A</footer>
     </div>
   );
 };

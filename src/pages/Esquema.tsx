@@ -23,6 +23,7 @@ const EsquemaPage = () => {
     try {
       const esquemaData = await listEsquema();
       setEsquemas(esquemaData || []);
+      console.log(esquemaData);
       setIsLoading(false);
     } catch (error) {
       console.error("Error al obtener la lista de esquemas:", error);
@@ -42,6 +43,8 @@ const EsquemaPage = () => {
     { id: "conductorMT", label: "Chofer Mañana Tit." },
     { id: "conductorTT", label: "Chofer Tarde Tit." },
     { id: "conductorNT", label: "Chofer Nocturno Tit." },
+    { id: "idModelo", label: "Modelo" },
+    { id: "descripcionGaraje", label: "Garaje" },
     { id: "Acción", label: "Acción" },
   ];
 

@@ -63,8 +63,8 @@ const Sidebar = () => {
                 to="/"
                 className={`flex items-center px-4 py-2 ${
                   location.pathname === "/"
-                    ? "bg-green-700 rounded"
-                    : "hover:bg-green-500 rounded"
+                    ? "bg-green-700 "
+                    : "hover:bg-green-500 "
                 }`}
               >
                 <FaHome className="mr-2" /> Inicio
@@ -74,8 +74,8 @@ const Sidebar = () => {
               <div
                 className={`flex items-center px-4 py-2 cursor-pointer ${
                   location.pathname.includes("/configuracion")
-                    ? "bg-green-700 rounded"
-                    : "hover:bg-green-500 rounded"
+                    ? "bg-green-700"
+                    : "hover:bg-green-500 "
                 }`}
                 onClick={toggleConfiguracion}
               >
@@ -90,8 +90,8 @@ const Sidebar = () => {
                           to={`/configuracion${path}`}
                           className={`block px-4 py-2 ${
                             location.pathname === `/configuracion${path}`
-                              ? "bg-green-700 rounded"
-                              : "hover:bg-green-500 rounded"
+                              ? "bg-green-700"
+                              : "hover:bg-green-500 "
                           }`}
                         >
                           {name}
@@ -102,8 +102,8 @@ const Sidebar = () => {
                             to={`/configuracion${path}`}
                             className={`block px-4 py-2 ${
                               location.pathname === `/configuracion${path}`
-                                ? "bg-green-700 rounded"
-                                : "hover:bg-green-500 rounded"
+                                ? "bg-green-700 "
+                                : "hover:bg-green-500"
                             }`}
                           >
                             {name}
@@ -118,8 +118,8 @@ const Sidebar = () => {
               <div
                 className={`flex items-center px-4 py-2 cursor-pointer ${
                   location.pathname === "/salir"
-                    ? "bg-green-700 rounded"
-                    : "hover:bg-green-500 rounded"
+                    ? "bg-green-700"
+                    : "hover:bg-green-500 "
                 }`}
                 onClick={() => {
                   logout();
