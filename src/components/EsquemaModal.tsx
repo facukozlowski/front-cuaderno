@@ -36,11 +36,7 @@ interface EsquemaModalProps {
   onSubmit: () => void;
 }
 
-const EsquemaModal: React.FC<EsquemaModalProps> = ({
-  onClose,
-  onSubmit,
-  defaultValues,
-}) => {
+const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
   const {
     createEsquema,
     listLineas,
@@ -55,26 +51,24 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({
     listRotacion,
   } = useAuth();
 
-  const [formData, setFormData] = useState<FormData>(
-    defaultValues || {
-      idLinea: 0,
-      idRamal: 0,
-      idCocheTitular: 0,
-      idCocheSuplente: 0,
-      idConductorMT: 0,
-      idConductorMS: 0,
-      idConductorTT: 0,
-      idConductorTS: 0,
-      idConductorNT: 0,
-      idConductorNS: 0,
-      idModelo: 0,
-      idGaraje: 0,
-      idTagIPK: 0,
-      idTipoServicio: 0,
-      idTipoLicencia: 0,
-      idTagRotacion: 0,
-    }
-  );
+  const [formData, setFormData] = useState<FormData>({
+    idLinea: 0,
+    idRamal: 0,
+    idCocheTitular: 0,
+    idCocheSuplente: 0,
+    idConductorMT: 0,
+    idConductorMS: 0,
+    idConductorTT: 0,
+    idConductorTS: 0,
+    idConductorNT: 0,
+    idConductorNS: 0,
+    idModelo: 0,
+    idGaraje: 0,
+    idTagIPK: 0,
+    idTipoServicio: 0,
+    idTipoLicencia: 0,
+    idTagRotacion: 0,
+  });
 
   const [lineas, setLineas] = useState<any[]>([]);
   const [ramal, setRamal] = useState<any[]>([]);
