@@ -21,6 +21,7 @@ interface MaterialTableProps {
   data: any[];
   rowsPerPageOptions?: number[];
   actions?: boolean;
+  onEditClick?: (idEsquema: string) => void;
 }
 
 const MaterialTable: React.FC<MaterialTableProps> = ({
@@ -28,6 +29,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
   data,
   rowsPerPageOptions = [5, 10, 25],
   actions = false,
+  onEditClick,
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
@@ -109,8 +111,8 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
                 {actions && (
                   <TableCell>
                     <button
-                      onClick={() => handleEdit(row.idEsquema)}
-                      className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
+                      onClick={() => onEditClick && onEditClick(row.idEsquema)}
+                      className="bg-yellow-500 text-white px-4 py-2 rounded-md mr-2"
                     >
                       Editar
                     </button>

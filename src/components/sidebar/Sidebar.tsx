@@ -43,7 +43,7 @@ const Sidebar = () => {
 
   return (
     <div className="flex">
-      <nav className="bg-orange-500 w-48 min-h-screen text-white relative left-0">
+      <nav className="bg-orange-600 w-48 min-h-screen text-white relative left-0">
         <div className="py-4">
           <div className="px-4 py-2">
             <button

@@ -19,6 +19,10 @@ const EsquemaPage = () => {
     setIsModalOpen(false);
   };
 
+  const openEditModal = (idEsquema: string) => {
+    console.log("abrir modal de edicion para esquema:", idEsquema);
+  };
+
   const fetchData = async () => {
     try {
       const esquemaData = await listEsquema();
@@ -44,7 +48,6 @@ const EsquemaPage = () => {
     { id: "conductorNT", label: "Chofer Nocturno Tit." },
     { id: "idModelo", label: "Modelo" },
     { id: "descripcionGaraje", label: "Garaje" },
-    { id: "Acción", label: "Acción" },
   ];
 
   return (
@@ -57,7 +60,12 @@ const EsquemaPage = () => {
             className="max-h-screen overflow-hidden w-full"
             style={{ maxWidth: "95%", maxHeight: "90%", overflowX: "hidden" }}
           >
-            <MaterialTable columns={columns} data={esquemas} actions={true} />
+            <MaterialTable
+              columns={columns}
+              data={esquemas}
+              actions={true}
+              onEditClick={openEditModal}
+            />
           </div>
 
           <div className="mt-4">
