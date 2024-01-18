@@ -4,12 +4,15 @@ import EsquemaModal from "../components/EsquemaModal";
 import MaterialTable from "../components/MaterialTable";
 import { CircularProgress } from "@mui/material";
 import { Button } from "../components/ui";
+import EditModal from "../components/EditModal";
 
 const EsquemaPage = () => {
   const { listEsquema } = useAuth();
   const [esquemas, setEsquemas] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedEsquema, setSelectedEsquema] = useState<string | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -20,7 +23,11 @@ const EsquemaPage = () => {
   };
 
   const openEditModal = (idEsquema: string) => {
-    console.log("abrir modal de edicion para esquema:", idEsquema);
+    const esquema = esquemas.find((esq) => esq.idEsquema === idEsquema);
+    if (esquema) {
+      setSelectedEsquema(esquema);
+      setIsEditModalOpen(true);
+    }
   };
 
   const fetchData = async () => {
@@ -57,8 +64,8 @@ const EsquemaPage = () => {
       ) : (
         <>
           <div
-            className="max-h-screen overflow-hidden w-full"
-            style={{ maxWidth: "95%", maxHeight: "90%", overflowX: "hidden" }}
+            className="mt-6 max-h-screen overflow-hidden w-full"
+            style={{ maxWidth: "90%", maxHeight: "100%", overflowX: "hidden" }}
           >
             <MaterialTable
               columns={columns}
@@ -68,7 +75,7 @@ const EsquemaPage = () => {
             />
           </div>
 
-          <div className="mt-4">
+          <div className="mt-2 mb-4">
             <Button
               onClick={openModal}
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-md focus:outline-none"
@@ -86,6 +93,17 @@ const EsquemaPage = () => {
             closeModal();
             fetchData();
           }}
+        />
+      )}
+
+      {isEditModalOpen && (
+        <EditModal
+          onClose={() => {
+            setIsEditModalOpen(false);
+            setSelectedEsquema(null);
+          }}
+          onSubmit={fetchData}
+          selectedEsquema={selectedEsquema}
         />
       )}
     </div>

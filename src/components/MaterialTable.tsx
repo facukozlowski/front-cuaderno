@@ -9,7 +9,10 @@ import {
   Paper,
   TablePagination,
   TextField,
+  IconButton,
 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Column {
   id: string;
@@ -64,10 +67,6 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
     page * rowsPerPage + rowsPerPage
   );
 
-  const handleEdit = (idEsquema: string) => {
-    console.log("Editar esquema con ID:", idEsquema);
-  };
-
   const handleDelete = (idEsquema: string) => {
     console.log("eliminar esquema con ID:", idEsquema);
   };
@@ -86,14 +85,19 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
       <TableContainer
         component={Paper}
         className="mb-4"
-        style={{ overflowY: "auto", maxHeight: "420px" }}
+        style={{ maxHeight: "420px" }}
       >
         <Table className="min-w-full my-10">
-          <TableHead className="bg-gray-200" style={{ whiteSpace: "nowrap" }}>
+          <TableHead className="bg-gray-200">
             <TableRow>
               {columns.map((column) => (
-                <TableCell key={column.id}>{column.label}</TableCell>
+                <TableCell style={{ whiteSpace: "nowrap" }} key={column.id}>
+                  {column.label}
+                </TableCell>
               ))}
+              {actions && (
+                <TableCell style={{ whiteSpace: "nowrap" }}>Acciones</TableCell>
+              )}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -109,19 +113,23 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
                   </TableCell>
                 ))}
                 {actions && (
-                  <TableCell>
-                    <button
-                      onClick={() => onEditClick && onEditClick(row.idEsquema)}
-                      className="bg-yellow-500 text-white px-4 py-2 rounded-md mr-2"
-                    >
-                      Editar
-                    </button>
-                    <button
-                      onClick={() => handleDelete(row.idEsquema)}
-                      className="bg-red-500 text-white px-4 py-2 rounded-md"
-                    >
-                      Eliminar
-                    </button>
+                  <TableCell style={{ minWidth: "120px" }}>
+                    <div className="actions">
+                      {onEditClick && (
+                        <IconButton
+                          onClick={() => onEditClick(row.idEsquema)}
+                          className="mr-4"
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      )}
+                      <IconButton
+                        onClick={() => handleDelete(row.idEsquema)}
+                        color="error"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
                   </TableCell>
                 )}
               </TableRow>
@@ -142,7 +150,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
         labelDisplayedRows={({ from, to, count }) =>
           `${from}-${to} de ${count}`
         }
-        className="mb-2"
+        className="mb-2 pagination-container"
       />
     </div>
   );

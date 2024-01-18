@@ -17,6 +17,7 @@ interface AuthContextProps {
   loading: boolean | null;
   createUser: (data: any) => Promise<void>;
   createEsquema: (data: any) => Promise<void>;
+  updateEsquema: (id: string, data: any) => Promise<void>;
   deleteUser: (data: any) => Promise<void>;
   login: (data: any) => Promise<void>;
   logout: () => void;
@@ -331,6 +332,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const updateEsquema = async (id: string, data: any): Promise<void> => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.put(
+        `http://localhost:3000/configuracion/esquema/${id}`,
+        data,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      toast.success("Esquema actualizado con éxito");
+    } catch (error) {
+      console.error("Error al actualizar esquema:", error);
+      toast.error("Error al actualizar el esquema");
+    }
+  };
+
   const createUser = async (data: any): Promise<void> => {
     try {
       const token = localStorage.getItem("token");
@@ -423,6 +445,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loading,
     createUser,
     createEsquema,
+    updateEsquema,
     deleteUser,
     listUsers,
     listEsquema,
