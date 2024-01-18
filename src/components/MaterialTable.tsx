@@ -20,12 +20,14 @@ interface MaterialTableProps {
   columns: Column[];
   data: any[];
   rowsPerPageOptions?: number[];
+  esquemaTable?: boolean;
 }
 
 const MaterialTable: React.FC<MaterialTableProps> = ({
   columns,
   data,
   rowsPerPageOptions = [5, 10, 25],
+  esquemaTable = false,
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
@@ -59,6 +61,14 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
+
+  const handleEdit = (idEsquema: string) => {
+    console.log("Editar esquema con ID:", idEsquema);
+  };
+
+  const handleDelete = (idEsquema: string) => {
+    console.log("eliminar esquema con ID:", idEsquema);
+  };
 
   return (
     <div className="m-4 bg-white rounded-xl px-5 py-2">
@@ -96,6 +106,22 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
                     {row[column.id]}
                   </TableCell>
                 ))}
+                {esquemaTable && (
+                  <TableCell>
+                    <button
+                      onClick={() => handleEdit(row.idEsquema)}
+                      className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => handleDelete(row.idEsquema)}
+                      className="bg-red-500 text-white px-4 py-2 rounded-md"
+                    >
+                      Eliminar
+                    </button>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>
