@@ -20,14 +20,14 @@ interface MaterialTableProps {
   columns: Column[];
   data: any[];
   rowsPerPageOptions?: number[];
-  esquemaTable?: boolean;
+  actions?: boolean;
 }
 
 const MaterialTable: React.FC<MaterialTableProps> = ({
   columns,
   data,
   rowsPerPageOptions = [5, 10, 25],
-  esquemaTable = false,
+  actions = false,
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
@@ -106,7 +106,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
                     {row[column.id]}
                   </TableCell>
                 ))}
-                {esquemaTable && (
+                {actions && (
                   <TableCell>
                     <button
                       onClick={() => handleEdit(row.idEsquema)}

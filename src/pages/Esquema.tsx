@@ -23,7 +23,6 @@ const EsquemaPage = () => {
     try {
       const esquemaData = await listEsquema();
       setEsquemas(esquemaData || []);
-      console.log(esquemaData);
       setIsLoading(false);
     } catch (error) {
       console.error("Error al obtener la lista de esquemas:", error);
@@ -58,7 +57,7 @@ const EsquemaPage = () => {
             className="max-h-screen overflow-hidden w-full"
             style={{ maxWidth: "95%", maxHeight: "90%", overflowX: "hidden" }}
           >
-            <MaterialTable columns={columns} data={esquemas} />
+            <MaterialTable columns={columns} data={esquemas} actions={true} />
           </div>
 
           <div className="mt-4">

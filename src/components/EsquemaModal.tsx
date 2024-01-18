@@ -239,299 +239,359 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
             X
           </Button>
           <DialogContent className="py-5">
-            <div className="modal-content p-8 rounded-md max-w-md mx-auto relative h-full py-5">
+            <div className="modal-content p-8 rounded-md max-w mx-auto relative h-full py-5">
               <div className="h-full flex items-center justify-center">
                 <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-                  <Label htmlFor="idLinea" className="mb-4">
-                    Linea:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idLinea"
-                        value={formData.idLinea}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idLinea",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}>-</MenuItem>
-                        {lineas.map((linea) => (
-                          <MenuItem key={linea.id} value={linea.id}>
-                            {linea.descripcion}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idRamal" className="mb-4">
-                    Ramal:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idRamal"
-                        value={formData.idRamal}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idRamal",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}>-</MenuItem>
-                        {ramal.map((ramal) => (
-                          <MenuItem key={ramal.id} value={ramal.id}>
-                            {ramal.descripcion}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idCocheTitular" className="mb-4">
-                    Coche Titular:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idCocheTitular"
-                        value={formData.idCocheTitular}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idCocheTitular",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}></MenuItem>
-
-                        {vehiculos.map((interno) => (
-                          <MenuItem key={interno.id} value={interno.id}>
-                            {interno.id}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idCocheSuplente" className="mb-4">
-                    Coche Suplente:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idCocheSuplente"
-                        value={formData.idCocheSuplente}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idCocheSuplente",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}></MenuItem>
-
-                        {vehiculos.map((interno) => (
-                          <MenuItem key={interno.id} value={interno.id}>
-                            {interno.id}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idConductorMT" className="mb-4">
-                    Conductor Mañana Titular:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idConductorMT"
-                        value={formData.idConductorMT}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idConductorMT",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}>.</MenuItem>
-                        {conductores.map((legajo) => (
-                          <MenuItem key={legajo.id} value={legajo.id}>
-                            {legajo.apellidonombre}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idConductorMS" className="mb-4">
-                    Conductor Mañana Suplente:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idConductorMS"
-                        value={formData.idConductorMS}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idConductorMS",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}>.</MenuItem>
-                        {conductores.map((legajo) => (
-                          <MenuItem key={legajo.id} value={legajo.id}>
-                            {legajo.apellidonombre}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idConductorTT" className="mb-4">
-                    Conductor Tarde Titular:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idConductorTT"
-                        value={formData.idConductorTT}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idConductorTT",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}>.</MenuItem>
-                        {conductores.map((legajo) => (
-                          <MenuItem key={legajo.id} value={legajo.id}>
-                            {legajo.apellidonombre}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idConductorTS" className="mb-4">
-                    Conductor Tarde Suplente:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idConductorTS"
-                        value={formData.idConductorTS}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idConductorTS",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}>.</MenuItem>
-                        {conductores.map((legajo) => (
-                          <MenuItem key={legajo.id} value={legajo.id}>
-                            {legajo.apellidonombre}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idConductorNT" className="mb-4">
-                    Conductor Nocturno Titular:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idConductorNT"
-                        value={formData.idConductorNT}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idConductorNT",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}>.</MenuItem>
-
-                        {conductores.map((legajo) => (
-                          <MenuItem key={legajo.id} value={legajo.id}>
-                            {legajo.apellidonombre}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idConductorNS" className="mb-4">
-                    Conductor Nocturno Suplente:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idConductorNS"
-                        value={formData.idConductorNS}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idConductorNS",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}>.</MenuItem>
-
-                        {conductores.map((legajo) => (
-                          <MenuItem key={legajo.id} value={legajo.id}>
-                            {legajo.apellidonombre}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idModelo" className="mb-4">
-                    Modelos:
-                    <FormControl fullWidth>
-                      <FormGroup>
-                        {modelos.map((modelo) => (
-                          <FormControlLabel
-                            key={modelo.idModelo}
-                            control={
-                              <Checkbox
-                                checked={selectedModelos.includes(modelo.id)}
-                                onChange={() => handleModeloChange(modelo.id)}
-                              />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="col-span-1">
+                      <Label htmlFor="idLinea" className="mb-4">
+                        Linea:
+                        <FormControl fullWidth>
+                          <Select
+                            name="idLinea"
+                            value={formData.idLinea}
+                            onChange={(e) =>
+                              handleSelectChange(
+                                "idLinea",
+                                e.target.value as number
+                              )
                             }
-                            label={modelo.descripcion}
-                          />
-                        ))}
-                      </FormGroup>
-                    </FormControl>
-                  </Label>
+                          >
+                            <MenuItem value={0}>Seleccionar</MenuItem>
+                            {lineas.map((linea) => (
+                              <MenuItem key={linea.id} value={linea.id}>
+                                {linea.descripcion}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Label>
+                    </div>
+                    <Label htmlFor="idRamal" className="mb-4">
+                      Ramal:
+                      <FormControl fullWidth>
+                        <Select
+                          name="idRamal"
+                          value={formData.idRamal}
+                          onChange={(e) =>
+                            handleSelectChange(
+                              "idRamal",
+                              e.target.value as number
+                            )
+                          }
+                        >
+                          <MenuItem value={0}>Seleccionar</MenuItem>
+                          {ramal.map((ramal) => (
+                            <MenuItem key={ramal.id} value={ramal.id}>
+                              {ramal.descripcion}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Label>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="col-span-1">
+                      <Label htmlFor="idCocheTitular" className="mb-4">
+                        Coche Titular:
+                        <FormControl fullWidth>
+                          <Select
+                            name="idCocheTitular"
+                            value={formData.idCocheTitular}
+                            onChange={(e) =>
+                              handleSelectChange(
+                                "idCocheTitular",
+                                e.target.value as number
+                              )
+                            }
+                          >
+                            <MenuItem value={0}></MenuItem>
 
-                  <Label htmlFor="idGaraje" className="mb-4">
-                    Garaje:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idGaraje"
-                        value={formData.idGaraje}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idGaraje",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}></MenuItem>
+                            {vehiculos.map((interno) => (
+                              <MenuItem key={interno.id} value={interno.id}>
+                                {interno.id}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Label>
+                    </div>
+                    <Label htmlFor="idCocheSuplente" className="mb-4">
+                      Coche Suplente:
+                      <FormControl fullWidth>
+                        <Select
+                          name="idCocheSuplente"
+                          value={formData.idCocheSuplente}
+                          onChange={(e) =>
+                            handleSelectChange(
+                              "idCocheSuplente",
+                              e.target.value as number
+                            )
+                          }
+                        >
+                          <MenuItem value={0}></MenuItem>
 
-                        {garajes.map((garaje) => (
-                          <MenuItem key={garaje.id} value={garaje.id}>
-                            {garaje.descripcion}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idTagIpk" className="mb-4">
-                    IPK:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idTagIPK"
-                        value={formData.idTagIPK}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idTagIPK",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}></MenuItem>
+                          {vehiculos.map((interno) => (
+                            <MenuItem key={interno.id} value={interno.id}>
+                              {interno.id}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Label>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="col-span-1">
+                      <Label htmlFor="idConductorMT" className="mb-4">
+                        Conductor Mañana Titular:
+                        <FormControl fullWidth>
+                          <Select
+                            name="idConductorMT"
+                            value={formData.idConductorMT}
+                            onChange={(e) =>
+                              handleSelectChange(
+                                "idConductorMT",
+                                e.target.value as number
+                              )
+                            }
+                          >
+                            <MenuItem value={0}>.</MenuItem>
+                            {conductores.map((legajo) => (
+                              <MenuItem key={legajo.id} value={legajo.id}>
+                                {legajo.apellidonombre}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Label>
+                    </div>
+                    <Label htmlFor="idConductorMS" className="mb-4">
+                      Conductor Mañana Suplente:
+                      <FormControl fullWidth>
+                        <Select
+                          name="idConductorMS"
+                          value={formData.idConductorMS}
+                          onChange={(e) =>
+                            handleSelectChange(
+                              "idConductorMS",
+                              e.target.value as number
+                            )
+                          }
+                        >
+                          <MenuItem value={0}>.</MenuItem>
+                          {conductores.map((legajo) => (
+                            <MenuItem key={legajo.id} value={legajo.id}>
+                              {legajo.apellidonombre}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Label>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="col-span-1">
+                      <Label htmlFor="idConductorTT" className="mb-4">
+                        Conductor Tarde Titular:
+                        <FormControl fullWidth>
+                          <Select
+                            name="idConductorTT"
+                            value={formData.idConductorTT}
+                            onChange={(e) =>
+                              handleSelectChange(
+                                "idConductorTT",
+                                e.target.value as number
+                              )
+                            }
+                          >
+                            <MenuItem value={0}>.</MenuItem>
+                            {conductores.map((legajo) => (
+                              <MenuItem key={legajo.id} value={legajo.id}>
+                                {legajo.apellidonombre}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Label>
+                    </div>
+                    <Label htmlFor="idConductorTS" className="mb-4">
+                      Conductor Tarde Suplente:
+                      <FormControl fullWidth>
+                        <Select
+                          name="idConductorTS"
+                          value={formData.idConductorTS}
+                          onChange={(e) =>
+                            handleSelectChange(
+                              "idConductorTS",
+                              e.target.value as number
+                            )
+                          }
+                        >
+                          <MenuItem value={0}>.</MenuItem>
+                          {conductores.map((legajo) => (
+                            <MenuItem key={legajo.id} value={legajo.id}>
+                              {legajo.apellidonombre}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Label>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="col-span-1">
+                      <Label htmlFor="idConductorNT" className="mb-4">
+                        Conductor Nocturno Titular:
+                        <FormControl fullWidth>
+                          <Select
+                            name="idConductorNT"
+                            value={formData.idConductorNT}
+                            onChange={(e) =>
+                              handleSelectChange(
+                                "idConductorNT",
+                                e.target.value as number
+                              )
+                            }
+                          >
+                            <MenuItem value={0}>.</MenuItem>
 
-                        {tagIpk.map((ipk) => (
-                          <MenuItem key={ipk.id} value={ipk.id}>
-                            {ipk.descripcion}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
+                            {conductores.map((legajo) => (
+                              <MenuItem key={legajo.id} value={legajo.id}>
+                                {legajo.apellidonombre}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Label>
+                    </div>
+                    <Label htmlFor="idConductorNS" className="mb-4">
+                      Conductor Nocturno Suplente:
+                      <FormControl fullWidth>
+                        <Select
+                          name="idConductorNS"
+                          value={formData.idConductorNS}
+                          onChange={(e) =>
+                            handleSelectChange(
+                              "idConductorNS",
+                              e.target.value as number
+                            )
+                          }
+                        >
+                          <MenuItem value={0}>.</MenuItem>
+
+                          {conductores.map((legajo) => (
+                            <MenuItem key={legajo.id} value={legajo.id}>
+                              {legajo.apellidonombre}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Label>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="col-span-1">
+                      <Label htmlFor="idGaraje" className="mb-4">
+                        Garaje:
+                        <FormControl fullWidth>
+                          <Select
+                            name="idGaraje"
+                            value={formData.idGaraje}
+                            onChange={(e) =>
+                              handleSelectChange(
+                                "idGaraje",
+                                e.target.value as number
+                              )
+                            }
+                          >
+                            <MenuItem value={0}></MenuItem>
+
+                            {garajes.map((garaje) => (
+                              <MenuItem key={garaje.id} value={garaje.id}>
+                                {garaje.descripcion}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Label>
+                    </div>
+                    <Label htmlFor="idTagIpk" className="mb-4">
+                      IPK:
+                      <FormControl fullWidth>
+                        <Select
+                          name="idTagIPK"
+                          value={formData.idTagIPK}
+                          onChange={(e) =>
+                            handleSelectChange(
+                              "idTagIPK",
+                              e.target.value as number
+                            )
+                          }
+                        >
+                          <MenuItem value={0}></MenuItem>
+
+                          {tagIpk.map((ipk) => (
+                            <MenuItem key={ipk.id} value={ipk.id}>
+                              {ipk.descripcion}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Label>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="col-span-1">
+                      <Label htmlFor="idTagRotacion" className="mb-4">
+                        Tag Rotación:
+                        <FormControl fullWidth>
+                          <Select
+                            name="idTagRotacion"
+                            value={formData.idTagRotacion || 0}
+                            onChange={(e) =>
+                              handleSelectChange(
+                                "idTagRotacion",
+                                e.target.value as number
+                              )
+                            }
+                          >
+                            <MenuItem value={0}>Seleccionar</MenuItem>
+                            {tagRotacion.map((tagRotacion) => (
+                              <MenuItem
+                                key={tagRotacion.id}
+                                value={tagRotacion.id}
+                              >
+                                {tagRotacion.descripcion}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Label>
+                    </div>
+                    <Label htmlFor="idTipoLicencia" className="mb-4">
+                      Tipo Licencia:
+                      <FormControl fullWidth>
+                        <Select
+                          name="idTipoLicencia"
+                          value={formData.idTipoLicencia}
+                          onChange={(e) =>
+                            handleSelectChange(
+                              "idTipoLicencia",
+                              e.target.value as number
+                            )
+                          }
+                        >
+                          <MenuItem value={0}>{null}</MenuItem>
+
+                          {tipoLicencia.map((tipoLicencia) => (
+                            <MenuItem
+                              key={tipoLicencia.id}
+                              value={tipoLicencia.id}
+                            >
+                              {tipoLicencia.descripcion}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Label>
+                  </div>
+
                   <Label htmlFor="idTipoServicio" className="mb-4">
                     Tipo Servicio:
                     <FormControl fullWidth>
@@ -558,54 +618,52 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                       </Select>
                     </FormControl>
                   </Label>
-                  <Label htmlFor="idTipoLicencia" className="mb-4">
-                    Tipo Licencia:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idTipoLicencia"
-                        value={formData.idTipoLicencia}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idTipoLicencia",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}>{null}</MenuItem>
 
-                        {tipoLicencia.map((tipoLicencia) => (
-                          <MenuItem
-                            key={tipoLicencia.id}
-                            value={tipoLicencia.id}
-                          >
-                            {tipoLicencia.descripcion}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
-                  <Label htmlFor="idTagRotacion" className="mb-4">
-                    Tag Rotación:
-                    <FormControl fullWidth>
-                      <Select
-                        name="idTagRotacion"
-                        value={formData.idTagRotacion || 0}
-                        onChange={(e) =>
-                          handleSelectChange(
-                            "idTagRotacion",
-                            e.target.value as number
-                          )
-                        }
-                      >
-                        <MenuItem value={0}>Seleccionar</MenuItem>
-                        {tagRotacion.map((tagRotacion) => (
-                          <MenuItem key={tagRotacion.id} value={tagRotacion.id}>
-                            {tagRotacion.descripcion}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="col-span-1 mt-6">
+                      <Label htmlFor="idModelo" className="mb-4">
+                        Modelos:
+                        <FormControl fullWidth>
+                          <FormGroup>
+                            {modelos.slice(0, 4).map((modelo) => (
+                              <FormControlLabel
+                                key={modelo.idModelo}
+                                control={
+                                  <Checkbox
+                                    checked={selectedModelos.includes(
+                                      modelo.id
+                                    )}
+                                    onChange={() =>
+                                      handleModeloChange(modelo.id)
+                                    }
+                                  />
+                                }
+                                label={modelo.descripcion}
+                              />
+                            ))}
+                          </FormGroup>
+                        </FormControl>
+                      </Label>
+                    </div>
+                    <div className="col-span-1 mt-12">
+                      <FormControl fullWidth>
+                        <FormGroup>
+                          {modelos.slice(4).map((modelo) => (
+                            <FormControlLabel
+                              key={modelo.idModelo}
+                              control={
+                                <Checkbox
+                                  checked={selectedModelos.includes(modelo.id)}
+                                  onChange={() => handleModeloChange(modelo.id)}
+                                />
+                              }
+                              label={modelo.descripcion}
+                            />
+                          ))}
+                        </FormGroup>
+                      </FormControl>
+                    </div>
+                  </div>
 
                   <Button
                     type="submit"
