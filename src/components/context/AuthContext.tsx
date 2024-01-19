@@ -18,6 +18,7 @@ interface AuthContextProps {
   createUser: (data: any) => Promise<void>;
   createEsquema: (data: any) => Promise<void>;
   updateEsquema: (id: string, data: any) => Promise<void>;
+  deleteEsquema: (id: string, data: any) => Promise<void>;
   deleteUser: (data: any) => Promise<void>;
   login: (data: any) => Promise<void>;
   logout: () => void;
@@ -353,6 +354,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const deleteEsquema = async (id: string, data: any): Promise<void> => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.put(
+        `http://localhost:3000/configuracion/esquema/${id}`,
+        data,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      toast.success("Esquema Eliminado");
+    } catch (error) {
+      console.error("Error al eliminar esquema:", error);
+      toast.error("Error al eliminar el esquema");
+    }
+  };
+
   const createUser = async (data: any): Promise<void> => {
     try {
       const token = localStorage.getItem("token");
@@ -446,6 +468,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     createUser,
     createEsquema,
     updateEsquema,
+    deleteEsquema,
     deleteUser,
     listUsers,
     listEsquema,

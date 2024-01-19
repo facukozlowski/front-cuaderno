@@ -25,6 +25,7 @@ interface MaterialTableProps {
   rowsPerPageOptions?: number[];
   actions?: boolean;
   onEditClick?: (idEsquema: string) => void;
+  onDeleteClick?: (idEsquema: string) => void;
 }
 
 const MaterialTable: React.FC<MaterialTableProps> = ({
@@ -33,6 +34,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
   rowsPerPageOptions = [5, 10, 25],
   actions = false,
   onEditClick,
+  onDeleteClick,
 }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
@@ -67,10 +69,6 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
     page * rowsPerPage + rowsPerPage
   );
 
-  const handleDelete = (idEsquema: string) => {
-    console.log("eliminar esquema con ID:", idEsquema);
-  };
-
   return (
     <div className="m-4 bg-white rounded-xl px-5 py-2">
       <TextField
@@ -95,6 +93,9 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
                   {column.label}
                 </TableCell>
               ))}
+              {actions && (
+                <TableCell style={{ whiteSpace: "nowrap" }}>Acciones</TableCell>
+              )}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -110,27 +111,26 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
                   </TableCell>
                 ))}
                 {actions && (
-                  <TableHead>
-                    Acciones
-                    <TableCell style={{ minWidth: "120px" }}>
-                      <div className="actions">
-                        {onEditClick && (
-                          <IconButton
-                            onClick={() => onEditClick(row.idEsquema)}
-                            className="mr-4"
-                          >
-                            <EditIcon />
-                          </IconButton>
-                        )}
+                  <TableCell style={{ minWidth: "120px" }}>
+                    <div className="actions">
+                      {onEditClick && (
                         <IconButton
-                          onClick={() => handleDelete(row.idEsquema)}
+                          onClick={() => onEditClick(row.idEsquema)}
+                          className="mr-4"
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      )}
+                      {onDeleteClick && (
+                        <IconButton
+                          onClick={() => onDeleteClick(row.idEsquema)}
                           color="error"
                         >
                           <DeleteIcon />
                         </IconButton>
-                      </div>
-                    </TableCell>
-                  </TableHead>
+                      )}
+                    </div>
+                  </TableCell>
                 )}
               </TableRow>
             ))}

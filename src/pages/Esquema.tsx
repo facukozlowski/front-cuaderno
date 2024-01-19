@@ -5,14 +5,16 @@ import MaterialTable from "../components/MaterialTable";
 import { CircularProgress } from "@mui/material";
 import { Button } from "../components/ui";
 import EditModal from "../components/EditModal";
+import DeleteModal from "../components/deleteModal";
 
 const EsquemaPage = () => {
-  const { listEsquema } = useAuth();
+  const { listEsquema, deleteEsquema } = useAuth();
   const [esquemas, setEsquemas] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedEsquema, setSelectedEsquema] = useState<string | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -22,12 +24,25 @@ const EsquemaPage = () => {
     setIsModalOpen(false);
   };
 
+  const openDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+
   const openEditModal = (idEsquema: string) => {
     const esquema = esquemas.find((esq) => esq.idEsquema === idEsquema);
     if (esquema) {
       setSelectedEsquema(esquema);
       setIsEditModalOpen(true);
     }
+  };
+
+  const handleDelete = (idEsquema: string) => {
+    openDeleteModal();
+    setSelectedEsquema(idEsquema);
   };
 
   const fetchData = async () => {
@@ -72,6 +87,7 @@ const EsquemaPage = () => {
               data={esquemas}
               actions={true}
               onEditClick={openEditModal}
+              onDeleteClick={handleDelete}
             />
           </div>
 
@@ -104,6 +120,20 @@ const EsquemaPage = () => {
           }}
           onSubmit={fetchData}
           selectedEsquema={selectedEsquema}
+        />
+      )}
+
+      {isDeleteModalOpen && (
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={closeDeleteModal}
+          onDelete={async () => {
+            if (selectedEsquema !== null) {
+              deleteEsquema(selectedEsquema, {});
+            }
+            setSelectedEsquema(null);
+            closeDeleteModal();
+          }}
         />
       )}
     </div>
