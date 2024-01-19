@@ -90,32 +90,58 @@ const EditModal: React.FC<EditModalProps> = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLineas((await listLineas()) || []);
-        setRamal((await listRamal()) || []);
-        setConductores((await listConductores()) || []);
-        setVehiculos((await listVehiculos()) || []);
-        setModelos((await listModelo()) || []);
-        setGarajes((await listGaraje()) || []);
-        setTagIpk((await listIPK()) || []);
-        setTipoServicio((await listServicio()) || []);
-        setTipoLicencia((await listLicencias()) || []);
-        setTagRotacion((await listRotacion()) || []);
+        const lineasData = await listLineas();
+        const ramalData = await listRamal();
+        const conductoresData = await listConductores();
+        const vehiculosData = await listVehiculos();
+        const modelosData = await listModelo();
+        const garajesData = await listGaraje();
+        const tagIpkData = await listIPK();
+        const tipoServicioData = await listServicio();
+        const tipoLicenciaData = await listLicencias();
+        const tagRotacionData = await listRotacion();
+
+        setLineas(lineasData || []);
+        setRamal(ramalData || []);
+        setConductores(conductoresData || []);
+        setVehiculos(vehiculosData || []);
+        setModelos(modelosData || []);
+        setGarajes(garajesData || []);
+        setTagIpk(tagIpkData || []);
+        setTipoServicio(tipoServicioData || []);
+        setTipoLicencia(tipoLicenciaData || []);
+        setTagRotacion(tagRotacionData || []);
+
+        // Si hay un esquema seleccionado, establece los valores iniciales
+        if (selectedEsquema) {
+          setFormData({
+            idLinea: selectedEsquema.idLinea || 0,
+            idRamal: selectedEsquema.idRamal || 0,
+            idCocheTitular: selectedEsquema.idCocheTitular || 0,
+            idCocheSuplente: selectedEsquema.idCocheSuplente || 0,
+            idConductorMT: selectedEsquema.idConductorMT || 0,
+            idConductorMS: selectedEsquema.idConductorMS || 0,
+            idConductorTT: selectedEsquema.idConductorTT || 0,
+            idConductorTS: selectedEsquema.idConductorTS || 0,
+            idConductorNT: selectedEsquema.idConductorNT || 0,
+            idConductorNS: selectedEsquema.idConductorNS || 0,
+            idModelo: selectedEsquema.idModelo || 0,
+            idGaraje: selectedEsquema.idGaraje || 0,
+            idTagIPK: selectedEsquema.idTagIPK || 0,
+            idTipoServicio: selectedEsquema.idTipoServicio || 0,
+            idTipoLicencia: selectedEsquema.idTipoLicencia || 0,
+            idTagRotacion: selectedEsquema.idTagRotacion || 0,
+          });
+
+          // Puedes también inicializar los modelos seleccionados aquí si es necesario
+          setSelectedModelos(selectedEsquema.idModelo || []);
+        }
       } catch (error) {
-        console.error("Error al obtener ldatos:", error);
+        console.error("Error al obtener datos:", error);
       }
     };
 
     fetchData();
-
-    const storedEsquemaData = loadFromLocalStorage("esquemaData");
-
-    if (storedEsquemaData) {
-      setFormData((prevData) => ({
-        ...prevData,
-        ...storedEsquemaData,
-      }));
-      setSelectedModelos(storedEsquemaData.idModelo || []);
-    }
   }, [
     listLineas,
     listRamal,
@@ -127,27 +153,14 @@ const EditModal: React.FC<EditModalProps> = ({
     listServicio,
     listLicencias,
     listRotacion,
+    selectedEsquema, // Asegúrate de incluir selectedEsquema como una dependencia
   ]);
-
-  const saveToLocalStorage = (key: string, data: any) => {
-    localStorage.setItem(key, JSON.stringify(data));
-  };
-
-  const loadFromLocalStorage = (key: string) => {
-    const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : null;
-  };
 
   const handleSelectChange = (name: string, value: number) => {
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-
-    saveToLocalStorage("esquemaData", {
-      ...formData,
-      [name]: value,
-    });
   };
 
   const handleModeloChange = (id: number): void => {
@@ -166,10 +179,8 @@ const EditModal: React.FC<EditModalProps> = ({
       const esquemaId = selectedEsquema?.idEsquema;
       await updateEsquema(esquemaId, {
         ...formData,
-        idModelo: selectedModelos,
       });
 
-      localStorage.removeItem("esquemaData");
       onSubmit();
     } catch (error) {
       console.error("Error al actualizar esquema:", error);
@@ -199,7 +210,7 @@ const EditModal: React.FC<EditModalProps> = ({
                               )
                             }
                           >
-                            <MenuItem value={selectedEsquema.descripcionLinea}>
+                            <MenuItem value={formData.idLinea}>
                               {selectedEsquema.descripcionLinea}
                             </MenuItem>
                             {lineas.map((linea) => (
@@ -224,7 +235,7 @@ const EditModal: React.FC<EditModalProps> = ({
                             )
                           }
                         >
-                          <MenuItem value={selectedEsquema.descripcionRamal}>
+                          <MenuItem value={formData.idRamal}>
                             {selectedEsquema.descripcionRamal}
                           </MenuItem>
                           {ramal.map((ramal) => (
@@ -251,7 +262,7 @@ const EditModal: React.FC<EditModalProps> = ({
                               )
                             }
                           >
-                            <MenuItem value={selectedEsquema.cocheTitular}>
+                            <MenuItem value={formData.idCocheTitular}>
                               {selectedEsquema.cocheTitular}
                             </MenuItem>
 
@@ -277,8 +288,8 @@ const EditModal: React.FC<EditModalProps> = ({
                             )
                           }
                         >
-                          <MenuItem value={selectedEsquema.cocheSuplente}>
-                            {selectedEsquema.cocheTitular}
+                          <MenuItem value={formData.idCocheSuplente}>
+                            {selectedEsquema.cocheSuplente}
                           </MenuItem>
 
                           {vehiculos.map((interno) => (
@@ -305,7 +316,7 @@ const EditModal: React.FC<EditModalProps> = ({
                               )
                             }
                           >
-                            <MenuItem value={selectedEsquema.conductorMT}>
+                            <MenuItem value={formData.idConductorMT}>
                               {selectedEsquema.conductorMT}
                             </MenuItem>
                             {conductores.map((legajo) => (
@@ -330,7 +341,7 @@ const EditModal: React.FC<EditModalProps> = ({
                             )
                           }
                         >
-                          <MenuItem value={selectedEsquema.conductorMS}>
+                          <MenuItem value={formData.idConductorMS}>
                             {selectedEsquema.conductorMS}
                           </MenuItem>
                           {conductores.map((legajo) => (
@@ -357,7 +368,7 @@ const EditModal: React.FC<EditModalProps> = ({
                               )
                             }
                           >
-                            <MenuItem value={selectedEsquema.conductorTT}>
+                            <MenuItem value={formData.idConductorTT}>
                               {selectedEsquema.conductorTT}
                             </MenuItem>
                             {conductores.map((legajo) => (
@@ -382,7 +393,7 @@ const EditModal: React.FC<EditModalProps> = ({
                             )
                           }
                         >
-                          <MenuItem value={selectedEsquema.conductorTS}>
+                          <MenuItem value={formData.idConductorTS}>
                             {selectedEsquema.conductorTS}
                           </MenuItem>
                           {conductores.map((legajo) => (
@@ -409,7 +420,7 @@ const EditModal: React.FC<EditModalProps> = ({
                               )
                             }
                           >
-                            <MenuItem value={selectedEsquema.conductorNT}>
+                            <MenuItem value={formData.idConductorNT}>
                               {selectedEsquema.conductorNT}
                             </MenuItem>
 
@@ -435,7 +446,7 @@ const EditModal: React.FC<EditModalProps> = ({
                             )
                           }
                         >
-                          <MenuItem value={selectedEsquema.conductorNS}>
+                          <MenuItem value={formData.idConductorNS}>
                             {selectedEsquema.conductorNS}
                           </MenuItem>
 
@@ -463,7 +474,7 @@ const EditModal: React.FC<EditModalProps> = ({
                               )
                             }
                           >
-                            <MenuItem value={selectedEsquema.descripcionGaraje}>
+                            <MenuItem value={formData.idGaraje}>
                               {selectedEsquema.descripcionGaraje}
                             </MenuItem>
 
@@ -489,7 +500,7 @@ const EditModal: React.FC<EditModalProps> = ({
                             )
                           }
                         >
-                          <MenuItem value={selectedEsquema.tagIPK}>
+                          <MenuItem value={formData.idTagIPK}>
                             {selectedEsquema.tagIPK}
                           </MenuItem>
 
@@ -517,7 +528,7 @@ const EditModal: React.FC<EditModalProps> = ({
                               )
                             }
                           >
-                            <MenuItem value={selectedEsquema.tagRotacion}>
+                            <MenuItem value={formData.idTagRotacion}>
                               {selectedEsquema.tagRotacion}
                             </MenuItem>
                             {tagRotacion.map((tagRotacion) => (
@@ -545,7 +556,7 @@ const EditModal: React.FC<EditModalProps> = ({
                             )
                           }
                         >
-                          <MenuItem value={selectedEsquema.tipoLicencia}>
+                          <MenuItem value={formData.idTipoLicencia}>
                             {selectedEsquema.tipoLicencia}
                           </MenuItem>
 
@@ -575,7 +586,7 @@ const EditModal: React.FC<EditModalProps> = ({
                           )
                         }
                       >
-                        <MenuItem value={selectedEsquema.tipoServicio}>
+                        <MenuItem value={formData.idTipoLicencia}>
                           {selectedEsquema.tipoServicio}
                         </MenuItem>
 
