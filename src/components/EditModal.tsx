@@ -85,108 +85,37 @@ const EditModal: React.FC<EditModalProps> = ({
   const [tipoServicio, setTipoServicio] = useState<any[]>([]);
   const [tipoLicencia, setTipoLicencia] = useState<any[]>([]);
   const [tagRotacion, setTagRotacion] = useState<any[]>([]);
+  const [selectedModelos, setSelectedModelos] = useState<number[]>([]);
 
   useEffect(() => {
-    const fetchLineas = async () => {
+    const fetchData = async () => {
       try {
-        const lineasData = await listLineas();
-        setLineas(lineasData || []);
+        setLineas((await listLineas()) || []);
+        setRamal((await listRamal()) || []);
+        setConductores((await listConductores()) || []);
+        setVehiculos((await listVehiculos()) || []);
+        setModelos((await listModelo()) || []);
+        setGarajes((await listGaraje()) || []);
+        setTagIpk((await listIPK()) || []);
+        setTipoServicio((await listServicio()) || []);
+        setTipoLicencia((await listLicencias()) || []);
+        setTagRotacion((await listRotacion()) || []);
       } catch (error) {
-        console.error("Error al obtener lineas:", error);
+        console.error("Error al obtener ldatos:", error);
       }
     };
 
-    const fetchRamales = async () => {
-      try {
-        const ramalData = await listRamal();
-        setRamal(ramalData || []);
-      } catch (error) {
-        console.error("Error al obtener ramales:", error);
-      }
-    };
+    fetchData();
 
-    const fetchConductores = async () => {
-      try {
-        const conductoresData = await listConductores();
-        setConductores(conductoresData || []);
-      } catch (error) {
-        console.error("Error al obtener conductores:", error);
-      }
-    };
+    const storedEsquemaData = loadFromLocalStorage("esquemaData");
 
-    const fetchVehiculos = async () => {
-      try {
-        const vehiculosData = await listVehiculos();
-        setVehiculos(vehiculosData || []);
-      } catch (error) {
-        console.error("Error al obtener los vehículos", error);
-      }
-    };
-
-    const fetchModelos = async () => {
-      try {
-        const modelosData = await listModelo();
-        setModelos(modelosData || []);
-      } catch (error) {
-        console.error("Error al obtener los modelos", error);
-      }
-    };
-
-    const fetchGarajes = async () => {
-      try {
-        const garajesData = await listGaraje();
-        setGarajes(garajesData || []);
-      } catch (error) {
-        console.error("Error al obtener los modelos", error);
-      }
-    };
-
-    const fetchTagIpk = async () => {
-      try {
-        const ipkData = await listIPK();
-        setTagIpk(ipkData || []);
-      } catch (error) {
-        console.error("Error al cargar datos", error);
-      }
-    };
-
-    const fetchTipoServicio = async () => {
-      try {
-        const tipoServicioData = await listServicio();
-        setTipoServicio(tipoServicioData || []);
-      } catch (error) {
-        console.error("Error al cargar tipos de servicio.", error);
-      }
-    };
-
-    const fetchTipoLicencia = async () => {
-      try {
-        const tipoLicenciaData = await listLicencias();
-        setTipoLicencia(tipoLicenciaData || []);
-      } catch (error) {
-        console.error();
-      }
-    };
-
-    const fetchTagRotacion = async () => {
-      try {
-        const tagRotacionData = await listRotacion();
-        setTagRotacion(tagRotacionData || []);
-      } catch (error) {
-        console.error("Error al cargar datos.", error);
-      }
-    };
-
-    fetchLineas();
-    fetchRamales();
-    fetchConductores();
-    fetchVehiculos();
-    fetchModelos();
-    fetchGarajes();
-    fetchTagIpk();
-    fetchTipoServicio();
-    fetchTipoLicencia();
-    fetchTagRotacion();
+    if (storedEsquemaData) {
+      setFormData((prevData) => ({
+        ...prevData,
+        ...storedEsquemaData,
+      }));
+      setSelectedModelos(storedEsquemaData.idModelo || []);
+    }
   }, [
     listLineas,
     listRamal,
@@ -200,83 +129,52 @@ const EditModal: React.FC<EditModalProps> = ({
     listRotacion,
   ]);
 
+  const saveToLocalStorage = (key: string, data: any) => {
+    localStorage.setItem(key, JSON.stringify(data));
+  };
+
+  const loadFromLocalStorage = (key: string) => {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+  };
+
   const handleSelectChange = (name: string, value: number) => {
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+
+    saveToLocalStorage("esquemaData", {
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleModeloChange = (id: number): void => {
+    setSelectedModelos((prevModelos) => {
+      if (prevModelos.includes(id)) {
+        return prevModelos.filter((modeloId) => modeloId !== id);
+      } else {
+        return [...prevModelos, id];
+      }
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log("ID del Ramal:", selectedEsquema.idRamal);
-
     e.preventDefault();
     try {
-      console.log("FormData antes de enviar:", formData);
-
-      const esquemaId = selectedEsquema.idEsquema;
+      const esquemaId = selectedEsquema?.idEsquema;
       await updateEsquema(esquemaId, {
         ...formData,
-        idModelo: selectedModelos.map((_modelo) => selectedModelos),
+        idModelo: selectedModelos,
       });
 
+      localStorage.removeItem("esquemaData");
       onSubmit();
     } catch (error) {
       console.error("Error al actualizar esquema:", error);
-      console.log("ID del Ramal:", selectedEsquema.idRamal);
     }
   };
-
-  const [selectedModelos, setSelectedModelos] = useState<number[]>([]);
-
-  const handleModeloChange = (idModelo: number) => {
-    console.log("selectedModelos:", selectedModelos);
-    console.log("idModelo:", idModelo);
-
-    let updatedSelectedModelos = [...selectedModelos];
-
-    if (updatedSelectedModelos.includes(idModelo)) {
-      updatedSelectedModelos = updatedSelectedModelos.filter(
-        (id) => id !== idModelo
-      );
-    } else {
-      updatedSelectedModelos.push(idModelo);
-    }
-
-    setSelectedModelos(updatedSelectedModelos);
-  };
-
-  useEffect(() => {
-    if (selectedEsquema) {
-      setFormData((prevData) => ({
-        ...prevData,
-        idLinea: selectedEsquema.descripcionLinea || 0,
-        idRamal: selectedEsquema.descripcionRamal || 0,
-        idCocheTitular: selectedEsquema.cocheTitular || 0,
-        idCocheSuplente: selectedEsquema.cocheSuplente || 0,
-        idConductorMT: selectedEsquema.conductorMT || 0,
-        idConductorMS: selectedEsquema.conductorMS || 0,
-        idConductorTT: selectedEsquema.conductorTT || 0,
-        idConductorTS: selectedEsquema.conductorTS || 0,
-        idConductorNT: selectedEsquema.conductorNT || 0,
-        idConductorNS: selectedEsquema.conductorNS || 0,
-        idModelo: selectedEsquema.idModelo || 0,
-        idGaraje: selectedEsquema.descripcionGaraje || 0,
-        idTagIPK: selectedEsquema.tagIPK || 0,
-        idTagRotacion: selectedEsquema.tagRotacion || 0,
-        idTipoLicencia: selectedEsquema.tipoLicencia || 0,
-        idTipoServicio: selectedEsquema.tipoServicio || 0,
-      }));
-
-      console.log("modelo", selectedEsquema);
-
-      const idModeloArray = Array.isArray(selectedEsquema.idModelo)
-        ? selectedEsquema.idModelo
-        : [];
-
-      setSelectedModelos(idModeloArray);
-    }
-  }, [selectedEsquema]);
 
   return (
     <div className="modal fixed inset-0 z-50 flex items-center justify-center">
@@ -359,7 +257,7 @@ const EditModal: React.FC<EditModalProps> = ({
 
                             {vehiculos.map((interno) => (
                               <MenuItem key={interno.id} value={interno.id}>
-                                {interno.id}
+                                {interno.interno}
                               </MenuItem>
                             ))}
                           </Select>
@@ -385,7 +283,7 @@ const EditModal: React.FC<EditModalProps> = ({
 
                           {vehiculos.map((interno) => (
                             <MenuItem key={interno.id} value={interno.id}>
-                              {interno.id}
+                              {interno.interno}
                             </MenuItem>
                           ))}
                         </Select>
@@ -693,10 +591,10 @@ const EditModal: React.FC<EditModalProps> = ({
                     </FormControl>
                   </Label>
 
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="col-span-1 mt-6">
-                      <Label htmlFor="idModelo" className="mb-4">
-                        Modelos:
+                  <div className="grid grid-cols-2 gap-2 mb-2">
+                    <div className="col-span-1 mt-6 mx-8">
+                      <Label htmlFor="idModelo" className="mb-8">
+                        <div className="mb-4"> Modelo:</div>
                         <FormControl fullWidth>
                           <FormGroup>
                             {modelos.slice(0, 4).map((modelo) => (
@@ -719,7 +617,7 @@ const EditModal: React.FC<EditModalProps> = ({
                         </FormControl>
                       </Label>
                     </div>
-                    <div className="col-span-1 mt-12">
+                    <div className="col-span-1 mt-16 mx-8">
                       <FormControl fullWidth>
                         <FormGroup>
                           {modelos.slice(4).map((modelo) => (

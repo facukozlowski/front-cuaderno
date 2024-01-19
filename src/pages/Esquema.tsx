@@ -58,7 +58,7 @@ const EsquemaPage = () => {
   ];
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-orange-600">
+    <div className="h-screen flex flex-col items-center justify-center bg-orange-500">
       {isLoading ? (
         <CircularProgress />
       ) : (

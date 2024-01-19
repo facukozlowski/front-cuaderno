@@ -15,7 +15,7 @@ const Login: React.FC = () => {
     }
   }, [isAuth, navigate]);
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (data: any) => {
     await login(data);
     if (isAuth) {
       navigate("/");
@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   });
 
   return (
-    <div className="flex items-center justify-center h-screen bg-orange-600">
+    <div className="flex items-center justify-center h-screen bg-orange-500">
       <Card className="bg-orange-500 max-w-md rounded-md">
         <h1 className="text-3xl font-bold mb-6 text-center py-10 text-white">
           INICIAR SESIÓN
