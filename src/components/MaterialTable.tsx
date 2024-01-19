@@ -95,9 +95,6 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
                   {column.label}
                 </TableCell>
               ))}
-              {actions && (
-                <TableCell style={{ whiteSpace: "nowrap" }}>Acciones</TableCell>
-              )}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -113,24 +110,27 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
                   </TableCell>
                 ))}
                 {actions && (
-                  <TableCell style={{ minWidth: "120px" }}>
-                    <div className="actions">
-                      {onEditClick && (
+                  <TableHead>
+                    Acciones
+                    <TableCell style={{ minWidth: "120px" }}>
+                      <div className="actions">
+                        {onEditClick && (
+                          <IconButton
+                            onClick={() => onEditClick(row.idEsquema)}
+                            className="mr-4"
+                          >
+                            <EditIcon />
+                          </IconButton>
+                        )}
                         <IconButton
-                          onClick={() => onEditClick(row.idEsquema)}
-                          className="mr-4"
+                          onClick={() => handleDelete(row.idEsquema)}
+                          color="error"
                         >
-                          <EditIcon />
+                          <DeleteIcon />
                         </IconButton>
-                      )}
-                      <IconButton
-                        onClick={() => handleDelete(row.idEsquema)}
-                        color="error"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </div>
-                  </TableCell>
+                      </div>
+                    </TableCell>
+                  </TableHead>
                 )}
               </TableRow>
             ))}
