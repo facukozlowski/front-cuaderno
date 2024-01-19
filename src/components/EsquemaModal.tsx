@@ -205,10 +205,6 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      console.log("FormData antes de enviar:", {
-        ...formData,
-        idModelo: selectedModelos,
-      });
       await createEsquema({ ...formData, idModelo: [selectedModelos] });
       onSubmit();
     } catch (error) {

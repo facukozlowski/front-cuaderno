@@ -41,6 +41,7 @@ const EsquemaPage = () => {
   };
 
   const handleDelete = (idEsquema: string) => {
+    console.log("handleDelete llamado");
     openDeleteModal();
     setSelectedEsquema(idEsquema);
   };
@@ -129,9 +130,14 @@ const EsquemaPage = () => {
           onClose={closeDeleteModal}
           onDelete={async () => {
             if (selectedEsquema !== null) {
-              deleteEsquema(selectedEsquema, {});
+              await deleteEsquema(selectedEsquema, {});
+              setEsquemas((prevEsquemas) =>
+                prevEsquemas.filter(
+                  (esquema) => esquema.idEsquema !== selectedEsquema
+                )
+              );
+              setSelectedEsquema(null);
             }
-            setSelectedEsquema(null);
             closeDeleteModal();
           }}
         />
