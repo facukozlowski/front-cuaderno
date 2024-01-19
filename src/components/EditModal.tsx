@@ -57,22 +57,22 @@ const EditModal: React.FC<EditModalProps> = ({
   } = useAuth();
 
   const [formData, setFormData] = useState<FormData>({
-    idLinea: 0,
-    idRamal: 0,
-    idCocheTitular: 0,
-    idCocheSuplente: 0,
-    idConductorMT: 0,
-    idConductorMS: 0,
-    idConductorTT: 0,
-    idConductorTS: 0,
-    idConductorNT: 0,
-    idConductorNS: 0,
-    idModelo: 0,
-    idGaraje: 0,
-    idTagIPK: 0,
-    idTipoServicio: 0,
-    idTipoLicencia: 0,
-    idTagRotacion: 0,
+    idLinea: selectedEsquema.idLinea,
+    idRamal: selectedEsquema.idRamal,
+    idCocheTitular: selectedEsquema.idCocheTitular,
+    idCocheSuplente: selectedEsquema.idCocheSuplente,
+    idConductorMT: selectedEsquema.idConductorMT,
+    idConductorMS: selectedEsquema.idConductorMS,
+    idConductorTT: selectedEsquema.idConductorTT,
+    idConductorTS: selectedEsquema.idConductorTS,
+    idConductorNT: selectedEsquema.idConductorNT,
+    idConductorNS: selectedEsquema.idConductorNS,
+    idModelo: selectedEsquema.idModelo,
+    idGaraje: selectedEsquema.idGaraje,
+    idTagIPK: selectedEsquema.idTagIPK,
+    idTipoServicio: selectedEsquema.idTipoServicio,
+    idTipoLicencia: selectedEsquema.idTipoLicencia,
+    idTagRotacion: selectedEsquema.idTagRotacion,
   });
 
   const [lineas, setLineas] = useState<any[]>([]);
@@ -177,8 +177,10 @@ const EditModal: React.FC<EditModalProps> = ({
     e.preventDefault();
     try {
       const esquemaId = selectedEsquema?.idEsquema;
+      console.log("selectedEsquema:", selectedEsquema);
       await updateEsquema(esquemaId, {
         ...formData,
+        idModelo: selectedModelos,
       });
 
       onSubmit();
