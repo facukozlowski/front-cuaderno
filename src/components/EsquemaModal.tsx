@@ -227,7 +227,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
   return (
     <div className="modal fixed inset-0 z-50 flex items-center justify-center">
       <Card className="full-screen">
-        <Dialog open={true} onClose={onClose}>
+        <Dialog open={true} onClose={onClose} fullWidth maxWidth="lg">
           <DialogContent className="py-5">
             <div className="modal-content p-8 rounded-md max-w mx-auto relative h-full py-5">
               <div className="h-full flex items-center justify-center">

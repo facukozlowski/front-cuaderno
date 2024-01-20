@@ -37,7 +37,7 @@ const Login: React.FC = () => {
             <Input
               id="legajo"
               placeholder="Ingrese su número de legajo"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none"
               {...register("legajo", { required: true })}
             />
           </div>
@@ -50,14 +50,14 @@ const Login: React.FC = () => {
               type="password"
               id="password"
               placeholder="Ingrese su contraseña"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none "
               {...register("password", { required: true })}
             />
           </div>
 
           <Button
             type="submit"
-            className="w-full bg-green-600 hover:bg-green-500 text-white py-2 my-2 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="w-full bg-green-600 hover:bg-green-500 text-white py-2 my-2 rounded-md focus:outline-none  focus:border-green-300"
           >
             INGRESAR
           </Button>
