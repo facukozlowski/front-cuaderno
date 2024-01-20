@@ -85,9 +85,16 @@ const EditModal: React.FC<EditModalProps> = ({
   const [tipoServicio, setTipoServicio] = useState<any[]>([]);
   const [tipoLicencia, setTipoLicencia] = useState<any[]>([]);
   const [tagRotacion, setTagRotacion] = useState<any[]>([]);
-  const [selectedModelos, setSelectedModelos] = useState<number[]>([]);
+  const [selectedModelos, setSelectedModelos] = useState<number[]>(
+    selectedEsquema?.idModelo || []
+  );
+  const [displaySelectedModelos, setDisplaySelectedModelos] = useState<
+    number[]
+  >(selectedEsquema?.idModelo || []);
 
   useEffect(() => {
+    console.log("selectedEsquema?.idModelo:", selectedEsquema?.idModelo);
+
     const fetchData = async () => {
       try {
         const lineasData = await listLineas();
@@ -112,7 +119,6 @@ const EditModal: React.FC<EditModalProps> = ({
         setTipoLicencia(tipoLicenciaData || []);
         setTagRotacion(tagRotacionData || []);
 
-        // Si hay un esquema seleccionado, establece los valores iniciales
         if (selectedEsquema) {
           setFormData({
             idLinea: selectedEsquema.idLinea || 0,
@@ -132,9 +138,7 @@ const EditModal: React.FC<EditModalProps> = ({
             idTipoLicencia: selectedEsquema.idTipoLicencia || 0,
             idTagRotacion: selectedEsquema.idTagRotacion || 0,
           });
-
-          // Puedes también inicializar los modelos seleccionados aquí si es necesario
-          setSelectedModelos(selectedEsquema.idModelo || []);
+          setDisplaySelectedModelos(selectedEsquema.idModelo || []);
         }
       } catch (error) {
         console.error("Error al obtener datos:", error);
@@ -142,19 +146,7 @@ const EditModal: React.FC<EditModalProps> = ({
     };
 
     fetchData();
-  }, [
-    listLineas,
-    listRamal,
-    listConductores,
-    listVehiculos,
-    listModelo,
-    listGaraje,
-    listIPK,
-    listServicio,
-    listLicencias,
-    listRotacion,
-    selectedEsquema, // Asegúrate de incluir selectedEsquema como una dependencia
-  ]);
+  }, [selectedEsquema]);
 
   const handleSelectChange = (name: string, value: number) => {
     setFormData((prevData) => ({
@@ -165,11 +157,13 @@ const EditModal: React.FC<EditModalProps> = ({
 
   const handleModeloChange = (id: number): void => {
     setSelectedModelos((prevModelos) => {
-      if (prevModelos.includes(id)) {
-        return prevModelos.filter((modeloId) => modeloId !== id);
-      } else {
-        return [...prevModelos, id];
-      }
+      const newSelectedModelos = Array.isArray(prevModelos)
+        ? prevModelos.includes(id)
+          ? prevModelos.filter((modeloId) => modeloId !== id)
+          : [...prevModelos, id]
+        : [id];
+
+      return newSelectedModelos;
     });
   };
 
@@ -177,13 +171,16 @@ const EditModal: React.FC<EditModalProps> = ({
     e.preventDefault();
     try {
       const esquemaId = selectedEsquema?.idEsquema;
-      console.log("selectedEsquema:", selectedEsquema);
       await updateEsquema(esquemaId, {
         ...formData,
         idModelo: selectedModelos,
       });
 
       onSubmit();
+      setSelectedModelos(selectedModelos);
+      console.log("selectedModelos:", selectedModelos);
+
+      onClose();
     } catch (error) {
       console.error("Error al actualizar esquema:", error);
     }

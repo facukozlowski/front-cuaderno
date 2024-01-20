@@ -132,7 +132,7 @@ const Sidebar = () => {
         </div>
 
         <img
-          src="/logo_susa.jpg"
+          src="/susa_logo3.jpg"
           alt="Logo Empresa"
           className="w-48 h-14 mb-0 absolute bottom-0"
         />
