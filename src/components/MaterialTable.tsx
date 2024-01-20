@@ -70,14 +70,13 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
   );
 
   return (
-    <div className="m-4 bg-white rounded-xl px-5 py-2">
+    <div className="bg-white rounded-xl px-5 py-2">
       <TextField
         label="Buscar"
         variant="outlined"
         margin="normal"
         value={searchTerm}
         onChange={handleSearch}
-        className="mb-2"
       />
 
       <TableContainer
@@ -85,7 +84,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
         className="mb-4"
         style={{ maxHeight: "420px" }}
       >
-        <Table className="min-w-full my-10">
+        <Table className="min-w-full my-10 mt-2 mb-2">
           <TableHead className="bg-gray-200">
             <TableRow>
               {columns.map((column) => (
@@ -150,7 +149,7 @@ const MaterialTable: React.FC<MaterialTableProps> = ({
         labelDisplayedRows={({ from, to, count }) =>
           `${from}-${to} de ${count}`
         }
-        className="mb-2 pagination-container"
+        className="pagination-container"
       />
     </div>
   );

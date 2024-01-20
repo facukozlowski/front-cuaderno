@@ -80,7 +80,7 @@ const EsquemaPage = () => {
       ) : (
         <>
           <div
-            className="mt-6 max-h-screen overflow-hidden w-full"
+            className="mt-5 max-h-screen overflow-hidden w-full"
             style={{ maxWidth: "90%", maxHeight: "100%", overflowX: "hidden" }}
           >
             <MaterialTable
@@ -92,7 +92,7 @@ const EsquemaPage = () => {
             />
           </div>
 
-          <div className="mt-2 mb-4">
+          <div className="mt-6 mb-4">
             <Button
               onClick={openModal}
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-md focus:outline-none"
