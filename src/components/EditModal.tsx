@@ -90,10 +90,11 @@ const EditModal: React.FC<EditModalProps> = ({
   const [tipoLicencia, setTipoLicencia] = useState<any[]>([]);
   const [tagRotacion, setTagRotacion] = useState<any[]>([]);
   const [selectedModelos, setSelectedModelos] = useState<number[]>(
-    selectedEsquema?.idModelo || []
+    selectedEsquema?.idModelo ? [selectedEsquema.idModelo] : []
   );
 
   useEffect(() => {
+    console.log("Estado inicial de selectedModelos:", selectedModelos);
     const fetchData = async () => {
       try {
         const lineasData = await listLineas();
@@ -165,6 +166,7 @@ const EditModal: React.FC<EditModalProps> = ({
           ? prevModelos.filter((modeloId) => modeloId !== id)
           : [...prevModelos, id]
         : [id];
+      console.log("Después de actualizar:", newSelectedModelos);
 
       return newSelectedModelos;
     });
@@ -172,17 +174,17 @@ const EditModal: React.FC<EditModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Modelos antes de enviar:", selectedModelos);
     try {
       const esquemaId = selectedEsquema?.idEsquema;
       await updateEsquema(esquemaId, {
         ...formData,
-        idModelo: selectedModelos,
+        idModelo: Array.isArray(selectedModelos)
+          ? selectedModelos
+          : [selectedModelos],
       });
 
       onSubmit();
-      setSelectedModelos(selectedModelos);
-      console.log("selectedModelos:", selectedModelos);
-
       onClose();
     } catch (error) {
       console.error("Error al actualizar esquema:", error);
