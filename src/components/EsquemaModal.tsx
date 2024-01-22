@@ -26,6 +26,7 @@ interface FormData {
   idModelo: number;
   idGaraje: number;
   idTagIPK: number;
+  idTipoHabilitacion: number;
   idTipoServicio: number;
   idTipoLicencia: number;
   idTagRotacion: number;
@@ -46,6 +47,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
     listModelo,
     listGaraje,
     listIPK,
+    listHabilitacion,
     listServicio,
     listLicencias,
     listRotacion,
@@ -65,6 +67,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
     idModelo: 0,
     idGaraje: 0,
     idTagIPK: 0,
+    idTipoHabilitacion: 0,
     idTipoServicio: 0,
     idTipoLicencia: 0,
     idTagRotacion: 0,
@@ -77,6 +80,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
   const [modelos, setModelos] = useState<any[]>([]);
   const [garajes, setGarajes] = useState<any[]>([]);
   const [tagIpk, setTagIpk] = useState<any[]>([]);
+  const [tipoHabilitacion, setTipoHabilitacion] = useState<any[]>([]);
   const [tipoServicio, setTipoServicio] = useState<any[]>([]);
   const [tipoLicencia, setTipoLicencia] = useState<any[]>([]);
   const [tagRotacion, setTagRotacion] = useState<any[]>([]);
@@ -145,6 +149,15 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
       }
     };
 
+    const fetchTipoHabilitacion = async () => {
+      try {
+        const tipoHabilitacionData = await listHabilitacion();
+        setTipoHabilitacion(tipoHabilitacionData || []);
+      } catch (error) {
+        console.error("Error al cargar datos", error);
+      }
+    };
+
     const fetchTipoServicio = async () => {
       try {
         const tipoServicioData = await listServicio();
@@ -179,6 +192,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
     fetchModelos();
     fetchGarajes();
     fetchTagIpk();
+    fetchTipoHabilitacion();
     fetchTipoServicio();
     fetchTipoLicencia();
     fetchTagRotacion();
@@ -190,6 +204,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
     listModelo,
     listGaraje,
     listIPK,
+    listHabilitacion,
     listServicio,
     listLicencias,
     listRotacion,
@@ -594,8 +609,8 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                     </FormControl>
                   </Label>
                 </div>
-                <div className="grid grid-cols-6 gap-6 mb-2">
-                  <div className="col-span-3 mb-4">
+                <div className="grid grid-cols-2 gap-6 mb-2">
+                  <div className="col-span-1 mb-4">
                     <Label htmlFor="idTipoServicio">
                       Tipo Servicio:
                       <FormControl fullWidth>
@@ -624,12 +639,41 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                       </FormControl>
                     </Label>
                   </div>
-                  <div>
+                  <Label htmlFor="idTipoHabilitacion">
+                    Tipo Habilitación:
+                    <FormControl fullWidth>
+                      <Select
+                        style={{ width: "400px" }}
+                        name="idTipoHabilitacion"
+                        value={formData.idTipoHabilitacion}
+                        onChange={(e) =>
+                          handleSelectChange(
+                            "idTipoHabilitacion",
+                            e.target.value as number
+                          )
+                        }
+                      >
+                        <MenuItem value={0}>Seleccionar</MenuItem>
+
+                        {tipoHabilitacion.map((tipoHabilitacion) => (
+                          <MenuItem
+                            key={tipoHabilitacion.id}
+                            value={tipoHabilitacion.id}
+                          >
+                            {tipoHabilitacion.descripcion}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Label>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mb-2">
+                  <div className="col-span-1 mb-2 mx-36">
                     <Label htmlFor="idModelo">
                       Modelo:
                       <FormControl fullWidth>
                         <FormGroup>
-                          {modelos.slice(0, 3).map((modelo) => (
+                          {modelos.slice(0, 4).map((modelo) => (
                             <FormControlLabel
                               key={modelo.idModelo}
                               control={
@@ -645,28 +689,10 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                       </FormControl>
                     </Label>
                   </div>
-                  <div className="mt-6">
+                  <div className="mt-6 mx-4">
                     <FormControl fullWidth>
                       <FormGroup>
-                        {modelos.slice(3, 6).map((modelo) => (
-                          <FormControlLabel
-                            key={modelo.idModelo}
-                            control={
-                              <Checkbox
-                                checked={selectedModelos.includes(modelo.id)}
-                                onChange={() => handleModeloChange(modelo.id)}
-                              />
-                            }
-                            label={modelo.descripcion}
-                          />
-                        ))}
-                      </FormGroup>
-                    </FormControl>
-                  </div>
-                  <div className="mt-6">
-                    <FormControl fullWidth>
-                      <FormGroup>
-                        {modelos.slice(6).map((modelo) => (
+                        {modelos.slice(4).map((modelo) => (
                           <FormControlLabel
                             key={modelo.idModelo}
                             control={

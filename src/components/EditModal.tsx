@@ -26,6 +26,7 @@ interface FormData {
   idModelo: number;
   idGaraje: number;
   idTagIPK: number;
+  idTipoHabilitacion: number;
   idTipoServicio: number;
   idTipoLicencia: number;
   idTagRotacion: number;
@@ -51,6 +52,7 @@ const EditModal: React.FC<EditModalProps> = ({
     listModelo,
     listGaraje,
     listIPK,
+    listHabilitacion,
     listServicio,
     listLicencias,
     listRotacion,
@@ -70,6 +72,7 @@ const EditModal: React.FC<EditModalProps> = ({
     idModelo: selectedEsquema.idModelo,
     idGaraje: selectedEsquema.idGaraje,
     idTagIPK: selectedEsquema.idTagIPK,
+    idTipoHabilitacion: selectedEsquema.idTipoHabilitacion,
     idTipoServicio: selectedEsquema.idTipoServicio,
     idTipoLicencia: selectedEsquema.idTipoLicencia,
     idTagRotacion: selectedEsquema.idTagRotacion,
@@ -82,6 +85,7 @@ const EditModal: React.FC<EditModalProps> = ({
   const [modelos, setModelos] = useState<any[]>([]);
   const [garajes, setGarajes] = useState<any[]>([]);
   const [tagIpk, setTagIpk] = useState<any[]>([]);
+  const [tipoHabilitacion, setTipoHabilitacion] = useState<any[]>([]);
   const [tipoServicio, setTipoServicio] = useState<any[]>([]);
   const [tipoLicencia, setTipoLicencia] = useState<any[]>([]);
   const [tagRotacion, setTagRotacion] = useState<any[]>([]);
@@ -99,6 +103,7 @@ const EditModal: React.FC<EditModalProps> = ({
         const modelosData = await listModelo();
         const garajesData = await listGaraje();
         const tagIpkData = await listIPK();
+        const tipoHabilitacionData = await listHabilitacion();
         const tipoServicioData = await listServicio();
         const tipoLicenciaData = await listLicencias();
         const tagRotacionData = await listRotacion();
@@ -110,6 +115,7 @@ const EditModal: React.FC<EditModalProps> = ({
         setModelos(modelosData || []);
         setGarajes(garajesData || []);
         setTagIpk(tagIpkData || []);
+        setTipoHabilitacion(tipoHabilitacionData || []);
         setTipoServicio(tipoServicioData || []);
         setTipoLicencia(tipoLicenciaData || []);
         setTagRotacion(tagRotacionData || []);
@@ -130,6 +136,7 @@ const EditModal: React.FC<EditModalProps> = ({
             idModelo: selectedEsquema.idModelo || 0,
             idGaraje: selectedEsquema.idGaraje || 0,
             idTagIPK: selectedEsquema.idTagIPK || 0,
+            idTipoHabilitacion: selectedEsquema.idTipoHabilitacion || 0,
             idTipoServicio: selectedEsquema.idTipoServicio || 0,
             idTipoLicencia: selectedEsquema.idTipoLicencia || 0,
             idTagRotacion: selectedEsquema.idTagRotacion || 0,
@@ -531,8 +538,8 @@ const EditModal: React.FC<EditModalProps> = ({
                     </FormControl>
                   </Label>
                 </div>
-                <div className="grid grid-cols-6 gap-6 mb-2">
-                  <div className="col-span-3 mb-4">
+                <div className="grid grid-cols-2 gap-6 mb-2">
+                  <div className="col-span-1 mb-4">
                     <Label htmlFor="idTipoServicio">
                       Tipo Servicio:
                       <FormControl fullWidth>
@@ -559,12 +566,39 @@ const EditModal: React.FC<EditModalProps> = ({
                       </FormControl>
                     </Label>
                   </div>
-                  <div>
+                  <Label htmlFor="idTipoHabilitacion">
+                    Tipo Habilitación:
+                    <FormControl fullWidth>
+                      <Select
+                        style={{ width: "400px" }}
+                        name="idTipoHabilitacion"
+                        value={formData.idTipoHabilitacion}
+                        onChange={(e) =>
+                          handleSelectChange(
+                            "idTipoHabilitacion",
+                            e.target.value as number
+                          )
+                        }
+                      >
+                        {tipoHabilitacion.map((tipoHabilitacion) => (
+                          <MenuItem
+                            key={tipoHabilitacion.id}
+                            value={tipoHabilitacion.id}
+                          >
+                            {tipoHabilitacion.descripcion}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Label>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mb-2">
+                  <div className="col-span-1 mb-2 mx-36">
                     <Label htmlFor="idModelo">
                       Modelo:
                       <FormControl fullWidth>
                         <FormGroup>
-                          {modelos.slice(0, 3).map((modelo) => (
+                          {modelos.slice(0, 4).map((modelo) => (
                             <FormControlLabel
                               key={modelo.idModelo}
                               control={
@@ -580,28 +614,10 @@ const EditModal: React.FC<EditModalProps> = ({
                       </FormControl>
                     </Label>
                   </div>
-                  <div className="mt-6">
+                  <div className="mt-6 mx-4">
                     <FormControl fullWidth>
                       <FormGroup>
-                        {modelos.slice(3, 6).map((modelo) => (
-                          <FormControlLabel
-                            key={modelo.idModelo}
-                            control={
-                              <Checkbox
-                                checked={selectedModelos.includes(modelo.id)}
-                                onChange={() => handleModeloChange(modelo.id)}
-                              />
-                            }
-                            label={modelo.descripcion}
-                          />
-                        ))}
-                      </FormGroup>
-                    </FormControl>
-                  </div>
-                  <div className="mt-6">
-                    <FormControl fullWidth>
-                      <FormGroup>
-                        {modelos.slice(6).map((modelo) => (
+                        {modelos.slice(4).map((modelo) => (
                           <FormControlLabel
                             key={modelo.idModelo}
                             control={

@@ -34,6 +34,7 @@ interface AuthContextProps {
   listIPK: () => Promise<void | any[]>;
   listLineas: () => Promise<void | any[]>;
   listRamal: () => Promise<void | any[]>;
+  listHabilitacion: () => Promise<void | any[]>;
 }
 
 interface AuthProviderProps {
@@ -310,6 +311,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const listHabilitacion = async (): Promise<any> => {
+    try {
+      const token = localStorage.getItem("token");
+      const response: AxiosResponse<any> = await axios.get(
+        "http://localhost:3000/configuracion/habilitacion",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const createEsquema = async (data: any): Promise<void> => {
     try {
       const token = localStorage.getItem("token");
@@ -482,6 +501,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     listIPK,
     listLineas,
     listRamal,
+    listHabilitacion,
     login,
     logout,
   };
