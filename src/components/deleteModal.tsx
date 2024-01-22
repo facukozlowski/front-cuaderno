@@ -20,7 +20,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
     <div className="fixed z-10 inset-0 overflow-y-auto">
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+          <div className="absolute inset-0 bg-gray-500 opacity-80"></div>
         </div>
 
         <span
@@ -36,7 +36,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
           aria-modal="true"
           aria-labelledby="modal-headline"
         >
-          <div className="bg-sky-100 p-6">
+          <div className="bg-gray-100 p-6">
             <p className="text-xl text-center text-gray-700 mb-4">
               ¿Seguro de que deseas eliminar este esquema?
             </p>
@@ -53,7 +53,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
               </Button>
               <Button
                 onClick={onClose}
-                style={{ backgroundColor: "#cbd5e0", color: "#4a5568" }}
+                style={{ backgroundColor: "#cbd5e5", color: "#4a5568" }}
               >
                 Cancelar
               </Button>

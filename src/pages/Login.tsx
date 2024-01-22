@@ -31,7 +31,7 @@ const Login: React.FC = () => {
 
         <form onSubmit={onSubmit}>
           <div className="mb-4">
-            <Label htmlFor="legajo" className="text-m text-white">
+            <Label htmlFor="legajo" className="text-xl text-white">
               Legajo:
             </Label>
             <Input
@@ -43,7 +43,7 @@ const Login: React.FC = () => {
           </div>
 
           <div className="mb-6">
-            <Label htmlFor="password" className="text-m text-white">
+            <Label htmlFor="password" className="text-xl text-white">
               Contraseña:
             </Label>
             <Input
