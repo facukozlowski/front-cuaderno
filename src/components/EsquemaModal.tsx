@@ -626,7 +626,7 @@ const EsquemaModal: React.FC<EsquemaModalProps> = ({ onClose, onSubmit }) => {
                   </div>
                   <div>
                     <Label htmlFor="idModelo">
-                      <div className=""> Modelo:</div>
+                      Modelo:
                       <FormControl fullWidth>
                         <FormGroup>
                           {modelos.slice(0, 3).map((modelo) => (

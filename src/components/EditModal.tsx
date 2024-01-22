@@ -184,17 +184,18 @@ const EditModal: React.FC<EditModalProps> = ({
 
   return (
     <div className="modal fixed inset-0 z-50 flex items-center justify-center">
-      <Card className="full-screen ">
+      <Card className="full-screen">
         <Dialog open={true} onClose={onClose} fullWidth maxWidth="md">
           <DialogContent>
             <div className="h-full flex items-center justify-center">
               <form onSubmit={handleSubmit}>
-                <div className="grid grid-cols-2 gap-4 mb-2">
-                  <div className="col-span-1 mb-2">
-                    <Label htmlFor="idLinea" className="mb-4">
+                <div className="grid grid-cols-2 gap-6 mb-2">
+                  <div className="col-span-1 mb-4">
+                    <Label htmlFor="idLinea">
                       Linea:
                       <FormControl fullWidth>
                         <Select
+                          style={{ width: "400px" }}
                           name="idLinea"
                           value={formData.idLinea}
                           onChange={(e) =>
@@ -213,10 +214,11 @@ const EditModal: React.FC<EditModalProps> = ({
                       </FormControl>
                     </Label>
                   </div>
-                  <Label htmlFor="idRamal" className="mb-4">
+                  <Label htmlFor="idRamal">
                     Ramal:
                     <FormControl fullWidth>
                       <Select
+                        style={{ width: "400px" }}
                         name="idRamal"
                         value={formData.idRamal}
                         onChange={(e) =>
@@ -235,12 +237,13 @@ const EditModal: React.FC<EditModalProps> = ({
                     </FormControl>
                   </Label>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="col-span-1">
-                    <Label htmlFor="idCocheTitular" className="mb-4">
+                <div className="grid grid-cols-2 gap-6 mb-2">
+                  <div className="col-span-1 mb-4">
+                    <Label htmlFor="idCocheTitular">
                       Coche Titular:
                       <FormControl fullWidth>
                         <Select
+                          style={{ width: "400px" }}
                           name="idCocheTitular"
                           value={formData.idCocheTitular}
                           onChange={(e) =>
@@ -259,10 +262,11 @@ const EditModal: React.FC<EditModalProps> = ({
                       </FormControl>
                     </Label>
                   </div>
-                  <Label htmlFor="idCocheSuplente" className="mb-4">
+                  <Label htmlFor="idCocheSuplente">
                     Coche Suplente:
                     <FormControl fullWidth>
                       <Select
+                        style={{ width: "400px" }}
                         name="idCocheSuplente"
                         value={formData.idCocheSuplente}
                         onChange={(e) =>
@@ -281,12 +285,13 @@ const EditModal: React.FC<EditModalProps> = ({
                     </FormControl>
                   </Label>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="col-span-1">
-                    <Label htmlFor="idConductorMT" className="mb-4">
+                <div className="grid grid-cols-2 gap-6 mb-2">
+                  <div className="col-span-1 mb-4">
+                    <Label htmlFor="idConductorMT">
                       Conductor Mañana Titular:
                       <FormControl fullWidth>
                         <Select
+                          style={{ width: "400px" }}
                           name="idConductorMT"
                           value={formData.idConductorMT}
                           onChange={(e) =>
@@ -305,10 +310,11 @@ const EditModal: React.FC<EditModalProps> = ({
                       </FormControl>
                     </Label>
                   </div>
-                  <Label htmlFor="idConductorMS" className="mb-4">
+                  <Label htmlFor="idConductorMS">
                     Conductor Mañana Suplente:
                     <FormControl fullWidth>
                       <Select
+                        style={{ width: "400px" }}
                         name="idConductorMS"
                         value={formData.idConductorMS}
                         onChange={(e) =>
@@ -327,12 +333,13 @@ const EditModal: React.FC<EditModalProps> = ({
                     </FormControl>
                   </Label>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="col-span-1">
-                    <Label htmlFor="idConductorTT" className="mb-4">
+                <div className="grid grid-cols-2 gap-6 mb-2">
+                  <div className="col-span-1 mb-4">
+                    <Label htmlFor="idConductorTT">
                       Conductor Tarde Titular:
                       <FormControl fullWidth>
                         <Select
+                          style={{ width: "400px" }}
                           name="idConductorTT"
                           value={formData.idConductorTT}
                           onChange={(e) =>
@@ -351,10 +358,11 @@ const EditModal: React.FC<EditModalProps> = ({
                       </FormControl>
                     </Label>
                   </div>
-                  <Label htmlFor="idConductorTS" className="mb-4">
+                  <Label htmlFor="idConductorTS">
                     Conductor Tarde Suplente:
                     <FormControl fullWidth>
                       <Select
+                        style={{ width: "400px" }}
                         name="idConductorTS"
                         value={formData.idConductorTS}
                         onChange={(e) =>
@@ -373,12 +381,13 @@ const EditModal: React.FC<EditModalProps> = ({
                     </FormControl>
                   </Label>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="col-span-1">
-                    <Label htmlFor="idConductorNT" className="mb-4">
+                <div className="grid grid-cols-2 gap-6 mb-2">
+                  <div className="col-span-1 mb-4">
+                    <Label htmlFor="idConductorNT">
                       Conductor Nocturno Titular:
                       <FormControl fullWidth>
                         <Select
+                          style={{ width: "400px" }}
                           name="idConductorNT"
                           value={formData.idConductorNT}
                           onChange={(e) =>
@@ -397,10 +406,11 @@ const EditModal: React.FC<EditModalProps> = ({
                       </FormControl>
                     </Label>
                   </div>
-                  <Label htmlFor="idConductorNS" className="mb-4">
+                  <Label htmlFor="idConductorNS">
                     Conductor Nocturno Suplente:
                     <FormControl fullWidth>
                       <Select
+                        style={{ width: "400px" }}
                         name="idConductorNS"
                         value={formData.idConductorNS}
                         onChange={(e) =>
@@ -419,12 +429,13 @@ const EditModal: React.FC<EditModalProps> = ({
                     </FormControl>
                   </Label>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="col-span-1">
-                    <Label htmlFor="idGaraje" className="mb-4">
+                <div className="grid grid-cols-2 gap-6 mb-2">
+                  <div className="col-span-1 mb-4">
+                    <Label htmlFor="idGaraje">
                       Garaje:
                       <FormControl fullWidth>
                         <Select
+                          style={{ width: "400px" }}
                           name="idGaraje"
                           value={formData.idGaraje}
                           onChange={(e) =>
@@ -443,10 +454,11 @@ const EditModal: React.FC<EditModalProps> = ({
                       </FormControl>
                     </Label>
                   </div>
-                  <Label htmlFor="idTagIpk" className="mb-4">
+                  <Label htmlFor="idTagIpk">
                     IPK:
                     <FormControl fullWidth>
                       <Select
+                        style={{ width: "400px" }}
                         name="idTagIPK"
                         value={formData.idTagIPK}
                         onChange={(e) =>
@@ -465,12 +477,13 @@ const EditModal: React.FC<EditModalProps> = ({
                     </FormControl>
                   </Label>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="col-span-1">
-                    <Label htmlFor="idTagRotacion" className="mb-4">
+                <div className="grid grid-cols-2 gap-6 mb-2">
+                  <div className="col-span-1 mb-4">
+                    <Label htmlFor="idTagRotacion">
                       Tag Rotación:
                       <FormControl fullWidth>
                         <Select
+                          style={{ width: "400px" }}
                           name="idTagRotacion"
                           value={formData.idTagRotacion || 0}
                           onChange={(e) =>
@@ -492,10 +505,11 @@ const EditModal: React.FC<EditModalProps> = ({
                       </FormControl>
                     </Label>
                   </div>
-                  <Label htmlFor="idTipoLicencia" className="mb-4">
+                  <Label htmlFor="idTipoLicencia">
                     Tipo Licencia:
                     <FormControl fullWidth>
                       <Select
+                        style={{ width: "400px" }}
                         name="idTipoLicencia"
                         value={formData.idTipoLicencia}
                         onChange={(e) =>
@@ -517,36 +531,40 @@ const EditModal: React.FC<EditModalProps> = ({
                     </FormControl>
                   </Label>
                 </div>
-
-                <Label htmlFor="idTipoServicio" className="mb-4">
-                  Tipo Servicio:
-                  <FormControl fullWidth>
-                    <Select
-                      name="idTipoServicio"
-                      value={formData.idTipoServicio}
-                      onChange={(e) =>
-                        handleSelectChange(
-                          "idTipoServicio",
-                          e.target.value as number
-                        )
-                      }
-                    >
-                      {tipoServicio.map((tipoServicio) => (
-                        <MenuItem key={tipoServicio.id} value={tipoServicio.id}>
-                          {tipoServicio.descripcion}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Label>
-
-                <div className="grid grid-cols-2 gap-2 mb-2">
-                  <div className="col-span-1 mt-6 mx-8">
-                    <Label htmlFor="idModelo" className="mb-8">
-                      <div className="mb-4"> Modelo:</div>
+                <div className="grid grid-cols-6 gap-6 mb-2">
+                  <div className="col-span-3 mb-4">
+                    <Label htmlFor="idTipoServicio">
+                      Tipo Servicio:
+                      <FormControl fullWidth>
+                        <Select
+                          style={{ width: "400px" }}
+                          name="idTipoServicio"
+                          value={formData.idTipoServicio}
+                          onChange={(e) =>
+                            handleSelectChange(
+                              "idTipoServicio",
+                              e.target.value as number
+                            )
+                          }
+                        >
+                          {tipoServicio.map((tipoServicio) => (
+                            <MenuItem
+                              key={tipoServicio.id}
+                              value={tipoServicio.id}
+                            >
+                              {tipoServicio.descripcion}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Label>
+                  </div>
+                  <div>
+                    <Label htmlFor="idModelo">
+                      Modelo:
                       <FormControl fullWidth>
                         <FormGroup>
-                          {modelos.slice(0, 4).map((modelo) => (
+                          {modelos.slice(0, 3).map((modelo) => (
                             <FormControlLabel
                               key={modelo.idModelo}
                               control={
@@ -562,10 +580,28 @@ const EditModal: React.FC<EditModalProps> = ({
                       </FormControl>
                     </Label>
                   </div>
-                  <div className="col-span-1 mt-16 mx-8">
+                  <div className="mt-6">
                     <FormControl fullWidth>
                       <FormGroup>
-                        {modelos.slice(4).map((modelo) => (
+                        {modelos.slice(3, 6).map((modelo) => (
+                          <FormControlLabel
+                            key={modelo.idModelo}
+                            control={
+                              <Checkbox
+                                checked={selectedModelos.includes(modelo.id)}
+                                onChange={() => handleModeloChange(modelo.id)}
+                              />
+                            }
+                            label={modelo.descripcion}
+                          />
+                        ))}
+                      </FormGroup>
+                    </FormControl>
+                  </div>
+                  <div className="mt-6">
+                    <FormControl fullWidth>
+                      <FormGroup>
+                        {modelos.slice(6).map((modelo) => (
                           <FormControlLabel
                             key={modelo.idModelo}
                             control={
@@ -581,17 +617,18 @@ const EditModal: React.FC<EditModalProps> = ({
                     </FormControl>
                   </div>
                 </div>
+
                 <div className="text-center">
                   <Button
                     onClick={onClose}
-                    className="w-full mt-2 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md focus:outline-none focus:ring focus:border-red-500"
+                    className="mx-4 bg-red-500 hover:bg-red-600 text-white py-2 mt-10 rounded-md focus:outline-none focus:ring focus:border-red-500"
                   >
                     Cancelar
                   </Button>
 
                   <Button
                     type="submit"
-                    className="w-full bg-green-500 hover:bg-green-600 text-white py-2 mt-10 rounded-md focus:outline-none focus:ring focus:border-green-500"
+                    className="mx-4 bg-green-500 hover:bg-green-600 text-white py-2 mt-10 rounded-md focus:outline-none focus:ring focus:border-green-500"
                   >
                     Guardar cambios
                   </Button>
